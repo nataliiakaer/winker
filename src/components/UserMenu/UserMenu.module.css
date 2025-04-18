@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  gap: 20px;
+  font-size: 24px;
+  padding: 30px;
+  background-color: aliceblue;
+  align-items: center;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+  font-size: 24px;
+}
+
+.active {
+  color: rgb(30, 45, 245);
+}
+
+.logoutBnt {
+  margin: 0 auto;
+  min-width: 120px;
+  padding: 10px 20px;
+  font-size: 15px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 15%;
+  background-color: rgb(177, 217, 252);
+}

@@ -1,0 +1,13 @@
+.message {
+  padding: 45px 15px;
+  font-size: 20px;
+  color: red;
+}
+
+.backLink {
+  text-decoration: underline;
+  cursor: pointer;
+  color: blue;
+  padding-left: 15px;
+  font-size: 24px;
+}

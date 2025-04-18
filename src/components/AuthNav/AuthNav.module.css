@@ -1,0 +1,9 @@
+.link {
+  text-decoration: none;
+  color: inherit;
+  font-size: 24px;
+}
+
+.active {
+  color: rgb(30, 45, 245);
+}

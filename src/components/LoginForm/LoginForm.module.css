@@ -1,0 +1,41 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  width: 300px;
+  background-color: aliceblue;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  /* Центрування по вертикалі та горизонталі */
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.submitBnt {
+  display: flex;
+  margin: 0 auto;
+  width: 120px;
+  padding: 10px 20px;
+  font-size: 16px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 15%;
+  background-color: rgb(177, 217, 252);
+}
+
+.errorText {
+  color: red;
+  padding-top: 4px;
+}
