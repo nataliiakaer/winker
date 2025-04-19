@@ -1,4 +1,3 @@
-//
 // Редюсер (reducer) - це функція, яка приймає поточний стан та екшен як аргументи і повертає новий стан.
 // - Кожен раз коли в додатку відправляється екшен, викликається редюсер щоб його обробити.
 // - Редюсер визначає, як змінюється стан програми у відповідь на надіслані екшени.
@@ -47,6 +46,15 @@ const authSlice = createSlice({
         state.error = action.payload;
         state.isRefreshing = false;
       });
+    // .addCase(apiLogout.pending, (state) => {
+    //   state.error = null;
+    // })
+    // .addCase(apiLogout.fulfilled, () => {
+    //   return INITIAL_STATE;
+    // })
+    // .addCase(apiLogout.rejected, (state, action) => {
+    //   state.error = action.payload;
+    // });
   },
 });
 

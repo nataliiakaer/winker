@@ -8,7 +8,6 @@ import css from "./UserMenu.module.css";
 import { NavLink } from "react-router-dom";
 import clsx from "clsx";
 
-
 const activeLinkClass = ({ isActive }) => {
   return clsx(css.link, isActive && css.active);
 };
@@ -17,36 +16,17 @@ const UserMenu = () => {
   return (
     <div className={css.container}>
       <NavLink to="/tasks" className={activeLinkClass}>
-        Tasks
+        Завдання
       </NavLink>
 
-      <NavLink to="/login_check">
+      {/* немає шляху на бекенді, щоб користувач виходив. Наприклад, POST /api/logout */}
+      {/* <NavLink to="/login_check">
         <button className={css.logoutBnt} type="button" onClick={() => {}}>
           Вийти
         </button>
-      </NavLink>
+      </NavLink> */}
     </div>
   );
 };
 
 export default UserMenu;
-
-// const UserMenu = () => {
-//   const dispatch = useDispatch();
-//   const user = useSelector(selectorAuthUser);
-
-//   const onLogout = () => {
-//     dispatch(logout());
-//   };
-
-//   return (
-//     <div className={css.container}>
-//       <p className={css.text}>Welcome, {user.name}</p>
-//       <Link to="/">
-//         <Button variant="contained" type="button" onClick={onLogout}>
-//           Logout
-//         </Button>
-//       </Link>
-//     </div>
-//   );
-// };

@@ -17,14 +17,29 @@ const TasksList = () => {
       <p>Task</p>
 
       <p>Task</p>
+
+      {/* коли завантажується список завдань після входу, добавити Індикатор завантаження */}
+
+      {/* {loading && (
+        <ClipLoader
+          loading={loading}
+          size={100}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      )}
+      {error && (
+        <p>
+          На жаль, щось пішло не так! Будь ласка, спробуйте перезавантажити цю
+          сторінку або зайти пізніше!
+        </p>
+      )}
+      {tasks.length > 0 && <TasksList items={tasks} />} */}
     </div>
   );
 };
 
 export default TasksList;
-
-
-
 
 // src/components/TaskList/TaskList.js
 

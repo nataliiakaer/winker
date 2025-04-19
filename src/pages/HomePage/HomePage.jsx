@@ -5,8 +5,16 @@
 Компонент <NavLink> відрізняється тільки тим, що може мати додаткові стилі, якщо поточний URL збігається зі значенням пропcа to. */
 
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectorAuthIsLoggedIn } from "../../redux/auth/selectors";
 
-const HomePage = ({ isLoggedIn }) => {
+// import css from "./HomePage.modelu.css";
+
+const HomePage = () => {
+  // return <p className={css.title}>Сайт для відображення завдань</p>;
+
+  const isLoggedIn = useSelector(selectorAuthIsLoggedIn);
+
   if (!isLoggedIn) {
     return <Link to="/login_check" />;
   }

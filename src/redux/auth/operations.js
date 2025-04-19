@@ -26,7 +26,7 @@ export const apiLogin = createAsyncThunk(
   }
 );
 
-// після перезавантаження сторінки, не відбудется розлогінення. Санка диспатчится під час ініціалізації додатку
+// після перезавантаження сторінки, не відбудеться розлогінення. Санка диспатчится під час ініціалізації додатку
 export const apiRefreshUser = createAsyncThunk(
   "auth/refresh",
   async (_, thunkApi) => {
@@ -49,3 +49,16 @@ export const apiRefreshUser = createAsyncThunk(
     },
   }
 );
+
+// export const apiLogout = createAsyncThunk(
+//   "auth/logout"
+//   // async (_, thunkApi) => {
+//   //   try {
+//   //     await instance.post("api/logout");
+//   //     setAuthHeaders("");
+//   //     return;
+//   //   } catch (error) {
+//   //     return thunkApi.rejectWithValue(error.message);
+//   //   }
+//   // }
+// );
