@@ -4,7 +4,7 @@ import axios from "axios";
 export const instance = axios.create({
   baseURL: "https://winker.com.ua/",
 });
-// Вище - це аналого до: axios.defaults.baseURL = "https://winker.com.ua/";
+// Вище - це аналог до: axios.defaults.baseURL = "https://winker.com.ua/";
 
 const setAuthHeaders = (token) => {
   instance.defaults.headers.common.Authorization = `Bearer ${token}`;

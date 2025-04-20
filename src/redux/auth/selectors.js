@@ -3,7 +3,6 @@
 Ця функція називається селектором і повинна повернути тільки ту частину стану, яка необхідна компоненту.*/
 // Якщо виникне помилка, користувач побачить її в інтерфейсі.
 
-export const selectorAuthUser = (state) => state.auth.user;
 export const selectorAuthToken = (state) => state.auth.token;
 export const selectorAuthIsLoggedIn = (state) => state.auth.isLoggedIn;
 export const selectorAuthIsRefreshing = (state) => state.auth.isRefreshing;

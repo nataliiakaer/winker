@@ -4,8 +4,7 @@
 import { Route, Routes } from "react-router-dom";
 import { lazy, useEffect } from "react";
 import Layout from "./Layout/Layout";
-import { useDispatch, useSelector } from "react-redux";
-import { selectorAuthIsRefreshing } from "../redux/auth/selectors";
+import { useDispatch } from "react-redux";
 import { apiRefreshUser } from "../redux/auth/operations";
 import RestrictedRoute from "./RestrictedRoute";
 import PrivateRoute from "./PrivateRoute";
@@ -17,13 +16,10 @@ const NotFoundPage = lazy(() => import("../pages/NotFoundPage/NotFoundPage"));
 
 function App() {
   const dispatch = useDispatch();
-  const isRefreshing = useSelector(selectorAuthIsRefreshing);
 
   useEffect(() => {
     dispatch(apiRefreshUser());
   }, [dispatch]);
-
-  if (isRefreshing) return <p>Оновлення користувача, будь ласка, зачекайте</p>;
 
   return (
     <>

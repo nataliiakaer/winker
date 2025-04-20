@@ -1,41 +1,32 @@
-import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import css from "./TasksList.module.css";
+import { selectorUserTasks } from "../../redux/tasks/selectors";
+import Task from "../Task/Task";
+import { apiDeleteTask } from "../../redux/tasks/operations";
+import toast from "react-hot-toast";
 
 const TasksList = () => {
+  const dispatch = useDispatch();
+  const visibleTasks = useSelector(selectorUserTasks);
+
+  const onDeleteTask = (taskId) => {
+    const action = apiDeleteTask(taskId);
+    dispatch(action)
+      .unwrap()
+      .then(() => {
+        toast("Завдання успішно видалено");
+      });
+  };
+
   return (
-    <div>
-      <p>Task</p>
-      <p>Task</p>
-
-      <p>Task</p>
-
-      <p>Task</p>
-
-      <p>Task</p>
-
-      <p>Task</p>
-
-      <p>Task</p>
-
-      <p>Task</p>
-
-      {/* коли завантажується список завдань після входу, добавити Індикатор завантаження */}
-
-      {/* {loading && (
-        <ClipLoader
-          loading={loading}
-          size={100}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
-      )}
-      {error && (
-        <p>
-          На жаль, щось пішло не так! Будь ласка, спробуйте перезавантажити цю
-          сторінку або зайти пізніше!
-        </p>
-      )}
-      {tasks.length > 0 && <TasksList items={tasks} />} */}
-    </div>
+    <ul className={css.list}>
+      {Array.isArray(visibleTasks) &&
+        visibleTasks.map((task) => (
+          <li key={task.id} className={css.item}>
+            <Task task={task} onDeleteTask={onDeleteTask}></Task>
+          </li>
+        ))}
+    </ul>
   );
 };
 

@@ -39,7 +39,7 @@ const LoginForm = () => {
       onSubmit={handleSubmit}
       validationSchema={LoginValidationSchema}
     >
-      <Form className={css.form}>
+      <Form className={css.container}>
         <label className={css.label}>
           <span>Email</span>
           <Field type="text" name="email" />

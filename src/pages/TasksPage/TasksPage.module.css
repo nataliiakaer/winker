@@ -1,12 +1,3 @@
-.submitBnt {
-  display: flex;
-  margin: 0 auto;
-  width: 120px;
-  height: 40px;
-  font-size: 16px;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  border-radius: 8%;
-  background-color: rgb(177, 217, 252);
+.section {
+  padding: 0 15px;
 }
