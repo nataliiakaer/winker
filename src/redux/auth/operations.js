@@ -40,6 +40,7 @@ export const apiRefreshUser = createAsyncThunk(
       return thunkApi.rejectWithValue(error.massage);
     }
   },
+  // Якщо токену в стейті немає, потрібна умова:
   {
     condition: (_, thunkApi) => {
       const state = thunkApi.getState();

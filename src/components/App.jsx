@@ -7,6 +7,8 @@ import Layout from "./Layout/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { selectorAuthIsRefreshing } from "../redux/auth/selectors";
 import { apiRefreshUser } from "../redux/auth/operations";
+import RestrictedRoute from "./RestrictedRoute";
+import PrivateRoute from "./PrivateRoute";
 
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 const TasksPage = lazy(() => import("../pages/TasksPage/TasksPage"));
@@ -27,10 +29,16 @@ function App() {
     <>
       <Layout>
         <Routes>
-          <Route path={"/"} element={<HomePage />} />
-          <Route path="/tasks" element={<TasksPage />} />
-          {/* <Route path="/tasks/{id}" element={<TasksPage />} /> */}
-          <Route path="/login_check" element={<LoginPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/tasks"
+            element={<PrivateRoute component={<TasksPage />}></PrivateRoute>}
+          />
+          {/* <Route path="/tasks/{id}" element={<TasksDetailsPage />} /> */}
+          <Route
+            path="/login_check"
+            element={<RestrictedRoute component={<LoginPage />} />}
+          />
           <Route path="*" element={<NotFoundPage />} /> // перехід за неіснуючим
           посиланням
         </Routes>

@@ -17,10 +17,7 @@ const AppBar = () => {
   return (
     <div className={css.container}>
       <nav>
-        <NavLink
-          to={isLoggedIn ? "/tasks" : "/login_check"}
-          className={css.link}
-        >
+        <NavLink to="/" className={css.link}>
           Winker
         </NavLink>
       </nav>
