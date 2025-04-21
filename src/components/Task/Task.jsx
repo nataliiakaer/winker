@@ -1,6 +1,6 @@
 import css from "./Task.module.css";
 
-const Task = ({ task: { id, title, created_at, status } }, onDeleteTask) => {
+const Task = ({ task: { id, title, created_at, status }, onDeleteTask }) => {
   return (
     <>
       <ul className={css.list}>

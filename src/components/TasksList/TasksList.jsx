@@ -20,6 +20,7 @@ const TasksList = () => {
 
   return (
     <ul className={css.list}>
+      {/* {visibleTasks?.length === 0 && <li>Список завдань порожній</li>} */}
       {Array.isArray(visibleTasks) &&
         visibleTasks.map((task) => (
           <li key={task.id} className={css.item}>
