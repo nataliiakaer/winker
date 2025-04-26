@@ -26,10 +26,23 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          {/* <Route
+            path="/tasks"
+            element={<PrivateRoute component={<TasksPage />}></PrivateRoute>}
+          /> */}
           <Route
             path="/tasks"
             element={<PrivateRoute component={<TasksPage />}></PrivateRoute>}
-          />
+          >
+            <Route
+              path="my-tasks"
+              element={<PrivateRoute component={<TasksPage />}></PrivateRoute>}
+            />
+            <Route
+              path="assigned-to-me"
+              element={<PrivateRoute component={<TasksPage />}></PrivateRoute>}
+            />
+          </Route>
           {/* <Route path="/tasks/{id}" element={<TasksDetailsPage />} /> */}
           <Route
             path="/login_check"

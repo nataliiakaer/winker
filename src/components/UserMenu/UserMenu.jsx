@@ -1,4 +1,5 @@
 // Компонент рендерить навігацію до завдань та кнопку для виходу
+// Ключове: end вказує, що активним має бути тільки /tasks, а не все, що починається з /tasks.
 
 /* Для створення посилань використовуються компоненти <Link> та <NavLink>. 
 Вони рендерять тег <a>, але стандартна поведінка посилання змінена так, що при натисканні просто оновлюється URL в адресному рядку браузера, без перезавантаження сторінки.
@@ -15,8 +16,14 @@ const activeLinkClass = ({ isActive }) => {
 const UserMenu = () => {
   return (
     <div className={css.container}>
-      <NavLink to="/tasks" className={activeLinkClass}>
-        Завдання
+      <NavLink to="/tasks" end className={activeLinkClass}>
+        Всі завдання
+      </NavLink>
+      <NavLink to="/tasks/my-tasks" className={activeLinkClass}>
+        Завдання від мене
+      </NavLink>
+      <NavLink to="/tasks/assigned-to-me" className={activeLinkClass}>
+        Завдання для мене
       </NavLink>
 
       {/* немає шляху на бекенді, щоб користувач виходив. Наприклад, POST /api/logout */}

@@ -35,7 +35,7 @@ export const apiRefreshUser = createAsyncThunk(
       const token = state.auth.token;
       setAuthHeaders(token);
       const { data } = await instance.get("api/mercure-token");
-      return data;
+      return data; 
     } catch (error) {
       return thunkApi.rejectWithValue(error.massage);
     }

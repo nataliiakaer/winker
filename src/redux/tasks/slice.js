@@ -1,8 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiDeleteTask, apiGetAllTasks } from "./operations";
+import {
+  apiDeleteTask,
+  apiGetAllTasks,
+  apiGetMyTasks,
+  apiGetTasksAssignedToMe,
+} from "./operations";
 
 const INITIAL_STATE = {
-  tasks: [],
+  allTasks: [],
+  myTasks: [],
+  assignedTasks: [],
   isLoading: false,
   error: null,
 };
@@ -13,13 +20,39 @@ const tasksSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(apiGetTasksAssignedToMe.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(apiGetTasksAssignedToMe.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.assignedTasks = action.payload;
+      })
+      .addCase(apiGetTasksAssignedToMe.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      .addCase(apiGetMyTasks.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(apiGetMyTasks.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.myTasks = action.payload;
+      })
+      .addCase(apiGetMyTasks.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
       .addCase(apiGetAllTasks.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
       .addCase(apiGetAllTasks.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.tasks = action.payload;
+        state.allTasks = action.payload;
       })
       .addCase(apiGetAllTasks.rejected, (state, action) => {
         state.isLoading = false;
