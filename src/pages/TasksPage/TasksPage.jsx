@@ -18,6 +18,7 @@ import {
   apiGetTasksAssignedToMe,
 } from "../../redux/tasks/operations";
 import { useLocation } from "react-router-dom";
+import TasksFilters from "../../components/TasksFilters/TasksFilters";
 
 const TasksPage = () => {
   const isLoading = useSelector(selectorTasksIsLoading);
@@ -65,15 +66,19 @@ const TasksPage = () => {
   const visibleTasks = getVisibleTasks();
 
   return (
-    <div className={css.section}>
-      {isLoading && <Loader />}
-      {error && (
-        <p style={{ color: "red" }}>
-          {error}. Будь ласка, спробуйте перезавантажити сторінку!
-        </p>
-      )}
-      <TasksList tasks={visibleTasks} isLoading={isLoading}/>
-    </div>
+    // <div className={css.pageWrapper}>
+    <>
+      <TasksFilters />
+      <div className={css.contentWrapper}>
+        {isLoading && <Loader />}
+        {error && (
+          <p style={{ color: "red" }}>
+            {error}. Будь ласка, спробуйте перезавантажити сторінку!
+          </p>
+        )}
+        <TasksList tasks={visibleTasks} isLoading={isLoading} />
+      </div>
+    </>
   );
 };
 

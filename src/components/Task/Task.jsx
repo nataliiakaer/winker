@@ -1,4 +1,5 @@
 import css from "./Task.module.css";
+import { MdDelete } from "react-icons/md";
 
 const Task = ({ task: { id, title, created_at, status }, onDeleteTask }) => {
   return (
@@ -21,7 +22,7 @@ const Task = ({ task: { id, title, created_at, status }, onDeleteTask }) => {
         type="button"
         onClick={() => onDeleteTask(id)}
       >
-        Видалити
+        <MdDelete />
       </button>
     </>
   );

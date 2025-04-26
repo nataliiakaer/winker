@@ -1,0 +1,54 @@
+.filtersContainer {
+  position: fixed;
+  top: 87px;
+  left: 20px;
+  width: 250px;
+
+  background-color: #f5f7fa;
+  padding: 16px;
+  border-radius: 12px;
+  height: 650px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filterGroup {
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filterGroup h4 {
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.filterGroup select,
+.filterGroup input[type="checkbox"],
+.filterGroup input[type="date"] {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+.dateRangeInputs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btnContainer {
+  display: flex;
+  gap: 10px;
+}
+.btnFilter {
+  border-radius: 4%;
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  background-color: rgb(177, 217, 252);
+}
