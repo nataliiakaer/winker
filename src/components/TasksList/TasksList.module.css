@@ -6,11 +6,20 @@
 
 .item {
   display: flex;
-  gap: 45px;
+  gap: 15px;
   justify-content: space-between;
   align-items: center;
   border: 1px solid #212121;
   padding: 10px;
-  height: 100px;
-  width: calc((100% - 117px) / 3);
+  width: 100%;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: column;
+    gap: 45px;
+    width: calc((100% - 72px) / 2);
+  }
+
+  @media screen and (min-width: 1200px) {
+    flex-direction: row;
+  }
 }

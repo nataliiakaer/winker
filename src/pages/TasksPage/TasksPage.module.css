@@ -1,3 +1,16 @@
+.pageWrapper {
+  display: flex; /* ВАЖЛИВО: щоб фільтри і контент були поряд */
+  align-items: flex-start;
+  gap: 20px; /* Відстань між фільтрами і списком завдань */
+}
+
 .contentWrapper {
-  margin: 20px 20px 20px 332px; /* ширина фільтрів + відступ */
+  flex-grow: 1; /* Займає весь доступний простір */
+  margin: 0 20px 20px 208px; /* тільки відступи зверху/збоку */
+
+  @media screen and (min-width: 768px) {
+    margin: 0 20px 20px 308px; /* тільки відступи зверху/збоку */
+
+  }
+
 }

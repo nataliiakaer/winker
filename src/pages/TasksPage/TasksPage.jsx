@@ -4,9 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import TasksList from "../../components/TasksList/TasksList";
 import css from "./TasksPage.module.css";
 import {
-  selectorAllTasks,
-  selectorMyTasks,
-  selectorTasksAssidnedToMe,
   selectorTasksError,
   selectorTasksIsLoading,
 } from "../../redux/tasks/selectors";
@@ -19,16 +16,25 @@ import {
 } from "../../redux/tasks/operations";
 import { useLocation } from "react-router-dom";
 import TasksFilters from "../../components/TasksFilters/TasksFilters";
+import {
+  selectFilteredAllTasks,
+  selectFilteredAssignedTasks,
+  selectFilteredMyTasks,
+} from "../../redux/filters/selectors";
 
 const TasksPage = () => {
   const isLoading = useSelector(selectorTasksIsLoading);
   const error = useSelector(selectorTasksError);
-  const allTasks = useSelector(selectorAllTasks);
-  const myTasks = useSelector(selectorMyTasks);
-  const assignedTasks = useSelector(selectorTasksAssidnedToMe);
+  const allTasks = useSelector(selectFilteredAllTasks);
+  const myTasks = useSelector(selectFilteredMyTasks);
+  const assignedTasks = useSelector(selectFilteredAssignedTasks);
 
   const dispatch = useDispatch();
   const location = useLocation();
+
+  useEffect(() => {
+    localStorage.setItem("lastVisitedTab", location.pathname);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (location.pathname === "/tasks" && allTasks.length === 0) {
@@ -66,8 +72,7 @@ const TasksPage = () => {
   const visibleTasks = getVisibleTasks();
 
   return (
-    // <div className={css.pageWrapper}>
-    <>
+    <div className={css.pageWrapper}>
       <TasksFilters />
       <div className={css.contentWrapper}>
         {isLoading && <Loader />}
@@ -78,7 +83,7 @@ const TasksPage = () => {
         )}
         <TasksList tasks={visibleTasks} isLoading={isLoading} />
       </div>
-    </>
+    </div>
   );
 };
 
