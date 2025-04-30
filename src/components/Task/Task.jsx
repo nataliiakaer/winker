@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
 import css from "./Task.module.css";
-import { MdDelete } from "react-icons/md";
+// import { MdDelete } from "react-icons/md";
 import { selectorUsers } from "../../redux/user/selectors";
 
 const Task = ({
   task: {
-    id,
+    // id,
     title,
     status,
     wink_type,
@@ -14,7 +14,7 @@ const Task = ({
     created_at,
     finished_date,
   },
-  onDeleteTask,
+  // onDeleteTask,
 }) => {
   const users = useSelector(selectorUsers);
 
@@ -69,13 +69,13 @@ const Task = ({
         </li>
       </ul>
 
-      <button
+      {/* <button
         className={css.deletetBnt}
         type="button"
         onClick={() => onDeleteTask(id)}
       >
         <MdDelete />
-      </button>
+      </button> */}
     </>
   );
 };

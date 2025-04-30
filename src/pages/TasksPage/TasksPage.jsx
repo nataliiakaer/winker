@@ -4,6 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import TasksList from "../../components/TasksList/TasksList";
 import css from "./TasksPage.module.css";
 import {
+  selectorAllTasks,
+  selectorModalAddTask,
+  selectorMyTasks,
+  selectorTasksAssidnedToMe,
   selectorTasksError,
   selectorTasksIsLoading,
 } from "../../redux/tasks/selectors";
@@ -21,10 +25,18 @@ import {
   selectFilteredAssignedTasks,
   selectFilteredMyTasks,
 } from "../../redux/filters/selectors";
+import ModalAddTask from "../../components/ModalAddTask/ModalAddTask";
 
 const TasksPage = () => {
   const isLoading = useSelector(selectorTasksIsLoading);
   const error = useSelector(selectorTasksError);
+
+  // завдання (без фільтрів)
+  const allTasksRaw = useSelector(selectorAllTasks);
+  const myTasksRaw = useSelector(selectorMyTasks);
+  const assignedTasksRaw = useSelector(selectorTasksAssidnedToMe);
+
+  // завдання (з фільтрами)
   const allTasks = useSelector(selectFilteredAllTasks);
   const myTasks = useSelector(selectFilteredMyTasks);
   const assignedTasks = useSelector(selectFilteredAssignedTasks);
@@ -32,30 +44,40 @@ const TasksPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
+  const modal = useSelector(selectorModalAddTask);
+
+  const openModal = () => {
+    dispatch(modal(true));
+  };
+
   useEffect(() => {
     localStorage.setItem("lastVisitedTab", location.pathname);
   }, [location.pathname]);
 
   useEffect(() => {
-    if (location.pathname === "/tasks" && allTasks.length === 0) {
-      dispatch(apiGetAllTasks());
-    } else if (
-      location.pathname === "/tasks/my-tasks" &&
-      myTasks.length === 0
-    ) {
-      dispatch(apiGetMyTasks());
-    } else if (
-      location.pathname === "/tasks/assigned-to-me" &&
-      assignedTasks.length === 0
-    ) {
-      dispatch(apiGetTasksAssignedToMe());
-    }
+    const fetchTasks = async () => {
+      if (location.pathname === "/tasks") {
+        if (allTasksRaw.length === 0) {
+          await dispatch(apiGetAllTasks());
+        }
+      } else if (location.pathname === "/tasks/my-tasks") {
+        if (myTasksRaw.length === 0) {
+          await dispatch(apiGetMyTasks());
+        }
+      } else if (location.pathname === "/tasks/assigned-to-me") {
+        if (assignedTasksRaw.length === 0) {
+          await dispatch(apiGetTasksAssignedToMe());
+        }
+      }
+    };
+
+    fetchTasks();
   }, [
     dispatch,
     location.pathname,
-    allTasks.length,
-    myTasks.length,
-    assignedTasks.length,
+    allTasksRaw.length,
+    myTasksRaw.length,
+    assignedTasksRaw.length,
   ]);
 
   const getVisibleTasks = () => {
@@ -73,6 +95,10 @@ const TasksPage = () => {
 
   return (
     <div className={css.pageWrapper}>
+      <button className={css.btnNewTask} type="button" onClick={openModal}>
+        Нове завдання
+      </button>
+      <ModalAddTask />
       <TasksFilters />
       <div className={css.contentWrapper}>
         {isLoading && <Loader />}

@@ -8,6 +8,8 @@ import { useDispatch } from "react-redux";
 import { apiRefreshUser } from "../redux/auth/operations";
 import RestrictedRoute from "./RestrictedRoute";
 import PrivateRoute from "./PrivateRoute";
+// import AssinedToMeTasksPage from "../pages/AssinedToMeTasksPage/AssinedToMeTasksPage";
+// import MyTasksPage from "../pages/MyTasksPage/MyTasksPage";
 
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 const TasksPage = lazy(() => import("../pages/TasksPage/TasksPage"));
@@ -26,23 +28,18 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          {/* <Route
-            path="/tasks"
-            element={<PrivateRoute component={<TasksPage />}></PrivateRoute>}
-          /> */}
           <Route
             path="/tasks"
-            element={<PrivateRoute component={<TasksPage />}></PrivateRoute>}
-          >
-            <Route
-              path="my-tasks"
-              element={<PrivateRoute component={<TasksPage />}></PrivateRoute>}
-            />
-            <Route
-              path="assigned-to-me"
-              element={<PrivateRoute component={<TasksPage />}></PrivateRoute>}
-            />
-          </Route>
+            element={<PrivateRoute component={<TasksPage />} />}
+          />
+          <Route
+            path="/tasks/my-tasks"
+            element={<PrivateRoute component={<TasksPage />} />}
+          />
+          <Route
+            path="/tasks/assigned-to-me"
+            element={<PrivateRoute component={<TasksPage />} />}
+          />
           {/* <Route path="/tasks/{id}" element={<TasksDetailsPage />} /> */}
           <Route
             path="/login_check"

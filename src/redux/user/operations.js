@@ -12,3 +12,15 @@ export const apiGetUsers = createAsyncThunk(
     }
   }
 );
+
+export const apiCurrentUser = createAsyncThunk(
+  "users/getCurrentUser",
+  async (_, thunkApi) => {
+    try {
+      const { data } = await instance.get("/api/users/user-info");
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);

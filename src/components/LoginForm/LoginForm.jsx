@@ -27,9 +27,9 @@ const LoginForm = () => {
   };
 
   const LoginValidationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Неправильна адреса електронної пошти")
-      .required("Обов'язкова наявність електронної пошти"),
+    // email: Yup.string()
+      // .email("Неправильна адреса електронної пошти")
+      // .required("Обов'язкова наявність електронної пошти"),
     password: Yup.string().required("Вкажіть пароль."),
   });
 

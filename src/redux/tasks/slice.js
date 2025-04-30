@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  apiDeleteTask,
+  apiAddTask,
+  // apiDeleteTask,
   apiGetAllTasks,
   apiGetMyTasks,
   apiGetTasksAssignedToMe,
@@ -12,6 +13,7 @@ const INITIAL_STATE = {
   assignedTasks: [],
   isLoading: false,
   error: null,
+  modal: false,
 };
 
 const tasksSlice = createSlice({
@@ -59,21 +61,41 @@ const tasksSlice = createSlice({
         state.error = action.payload;
       })
 
-      .addCase(apiDeleteTask.pending, (state) => {
+      .addCase(apiAddTask.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(apiDeleteTask.fulfilled, (state, action) => {
+      .addCase(apiAddTask.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.error = null;
-        state.tasks = state.tasks.filter(
-          (task) => task.id !== action.payload.id
-        );
+        state.myTasks.push(action.payload);
+        state.modal = false;
       })
-      .addCase(apiDeleteTask.rejected, (state, action) => {
+      .addCase(apiAddTask.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });
+
+    // .addCase(apiDeleteTask.pending, (state) => {
+    //   state.isLoading = true;
+    //   state.error = null;
+    // })
+    // .addCase(apiDeleteTask.fulfilled, (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = null;
+    //   state.allTasks = state.allTasks.filter(
+    //     (task) => task.id !== action.payload.id
+    //   );
+    //   state.myTasks = state.myTasks.filter(
+    //     (task) => task.id !== action.payload.id
+    //   );
+    //   state.assignedTasks = state.assignedTasks.filter(
+    //     (task) => task.id !== action.payload.id
+    //   );
+    // })
+    // .addCase(apiDeleteTask.rejected, (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.payload;
+    // });
   },
 });
 

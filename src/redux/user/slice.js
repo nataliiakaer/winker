@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiGetUsers } from "./operations";
+import { apiCurrentUser, apiGetUsers } from "./operations";
 
 const initialState = {
   users: [],
+  currentUser: [],
   isLoading: false,
   error: null,
 };
@@ -24,6 +25,18 @@ const usersSlice = createSlice({
       .addCase(apiGetUsers.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(apiCurrentUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(apiCurrentUser.fulfilled, (state, action) => {
+        state.currentUser = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(apiCurrentUser.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
       });
   },
 });

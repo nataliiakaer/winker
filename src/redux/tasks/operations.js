@@ -51,14 +51,27 @@ export const apiGetAllTasks = createAsyncThunk(
   }
 );
 
-export const apiDeleteTask = createAsyncThunk(
-  "tasks/deleteTask",
-  async (taskId, thunkApi) => {
+export const apiAddTask = createAsyncThunk(
+  "tasks/getAddTask",
+  async (formData, thunkApi) => {
     try {
-      const { data } = await instance.delete(`api/tasks/${taskId}`);
-      return data;
+      const { data } = await instance.post("api/tasks", formData);
+      console.log(data);
+      return data; // те, що повертається з санки потрапляє в action.payload в статусі fullfilled
     } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+      return thunkApi.rejectWithValue(error.message); // те, що повертається з санки потрапляє в action.payload в статусі rejected
     }
   }
 );
+
+// export const apiDeleteTask = createAsyncThunk(
+//   "tasks/deleteTask",
+//   async (taskId, thunkApi) => {
+//     try {
+//       const { data } = await instance.delete(`api/tasks/${taskId}`);
+//       return data;
+//     } catch (error) {
+//       return thunkApi.rejectWithValue(error.message);
+//     }
+//   }
+// );

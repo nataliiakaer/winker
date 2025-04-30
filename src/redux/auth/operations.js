@@ -16,7 +16,6 @@ export const apiLogin = createAsyncThunk(
     try {
       const { data } = await instance.post("api/login_check", formData);
       setAuthHeaders(data.token);
-      console.log("data: ", data);
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(

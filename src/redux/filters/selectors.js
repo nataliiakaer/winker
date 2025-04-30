@@ -110,6 +110,7 @@ const applyFilters = (tasks, filters) => {
 
         return true;
       })
+      
 
       .filter((task) => {
         const { dateType, dateFilter } = filters;
