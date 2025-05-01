@@ -19,7 +19,11 @@ const INITIAL_STATE = {
 const tasksSlice = createSlice({
   name: "tasks",
   initialState: INITIAL_STATE,
-  reducers: {},
+  reducers: {
+    setModal: (state, action) => {
+      state.modal = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(apiGetTasksAssignedToMe.pending, (state) => {
@@ -99,4 +103,5 @@ const tasksSlice = createSlice({
   },
 });
 
+export const { setModal } = tasksSlice.actions;
 export const tasksReducer = tasksSlice.reducer;
