@@ -1,0 +1,6 @@
+.container {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  transition: padding 0.3s ease;
+}

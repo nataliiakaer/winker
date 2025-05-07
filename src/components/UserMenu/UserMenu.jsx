@@ -30,7 +30,7 @@ const UserMenu = () => {
   }, [dispatch, isLoggedIn]);
 
   return (
-    <div className={css.container}>
+    <>
       <div className={css.navContainer}>
         <NavLink to="/tasks" end className={activeLinkClass}>
           Всі завдання
@@ -43,16 +43,16 @@ const UserMenu = () => {
         </NavLink>
       </div>
 
-      <p className={css.name}>
+      <div className={css.nameContainer}>
         {currectUser.firstName} {currectUser.lastName}
-      </p>
+      </div>
       {/* немає шляху на бекенді, щоб користувач виходив. Наприклад, POST /api/logout */}
       {/* <NavLink to="/login_check">
         <button className={css.logoutBnt} type="button" onClick={() => {}}>
           Вийти
         </button>
       </NavLink> */}
-    </div>
+    </>
   );
 };
 

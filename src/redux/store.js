@@ -17,9 +17,10 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { tasksReducer } from "./tasks/slice";
+import { tasksListsReducer } from "./tasks/tasksLists";
 import { filtersReducer } from "./filters/slice";
 import { usersReducer } from "./user/slice";
+import { taskDetailsReducer } from "./tasks/task";
 
 const authPersistConfig = {
   key: "auth",
@@ -41,7 +42,8 @@ const filtersPersistConfig = {
 export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
-    tasks: persistReducer(tasksPersistConfig, tasksReducer), // Зберігаємо tasks!
+    tasksLists: persistReducer(tasksPersistConfig, tasksListsReducer), // Зберігаємо tasks!
+    taskDetails: taskDetailsReducer,
     filters: persistReducer(filtersPersistConfig, filtersReducer),
     users: usersReducer,
   },

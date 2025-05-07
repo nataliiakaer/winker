@@ -12,6 +12,7 @@
   position: absolute;
   border-radius: 10px;
   padding: 20px;
+  padding-top: 60px;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -34,5 +35,36 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  /* gap: 25px; */
+}
+
+.group {
+  margin-bottom: 15px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.input,
+.select {
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.errorText {
+  color: red;
+  font-size: 12px;
+}
+
+.submitBtn {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
 }

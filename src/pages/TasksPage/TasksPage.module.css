@@ -1,12 +1,11 @@
 .pageWrapper {
   display: flex; /* ВАЖЛИВО: щоб фільтри і контент були поряд */
   align-items: flex-start;
-  gap: 20px; /* Відстань між фільтрами і списком завдань */
 }
 
 .contentWrapper {
   flex-grow: 1; /* Займає весь доступний простір */
-  margin: 0 20px 20px 208px; /* тільки відступи зверху/збоку */
+  margin: 0 0 0 193px; /* тільки відступи зверху/збоку */
 
   @media screen and (min-width: 768px) {
     margin: 0 20px 20px 308px; /* тільки відступи зверху/збоку */
@@ -16,13 +15,16 @@
 .btnNewTask {
   position: fixed;
   top: 87px;
-  width: 150px;
 
-  width: 282px;
   height: 50px;
+  width: 182px;
   border: none;
   border-radius: 12px;
   font-size: 16px;
+
+  @media screen and (min-width: 768px) {
+    width: 282px;
+  }
 }
 
 .btnNewTask:hover,

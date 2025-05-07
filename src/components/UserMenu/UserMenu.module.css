@@ -1,29 +1,25 @@
-.container {
+.userContainer {
   display: flex;
-  gap: 180px;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
 }
 
 .navContainer {
   display: flex;
   gap: 20px;
-  font-size: 24px;
-}
-
-.name {
-  font-size: 20px;
 }
 
 .link {
   text-decoration: none;
   color: inherit;
-  font-size: 24px;
 }
 
 .active {
   color: rgb(30, 45, 245);
 }
 
-.logoutBnt {
+/* .logoutBnt {
   margin: 0 auto;
   min-width: 120px;
   padding: 10px 20px;
@@ -33,4 +29,4 @@
   border: none;
   border-radius: 15%;
   background-color: rgb(177, 217, 252);
-}
+} */

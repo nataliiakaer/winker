@@ -4,10 +4,11 @@
 import { Route, Routes } from "react-router-dom";
 import { lazy, useEffect } from "react";
 import Layout from "./Layout/Layout";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { apiRefreshUser } from "../redux/auth/operations";
 import RestrictedRoute from "./RestrictedRoute";
 import PrivateRoute from "./PrivateRoute";
+import { selectorAuthIsRefreshing } from "../redux/auth/selectors";
 // import AssinedToMeTasksPage from "../pages/AssinedToMeTasksPage/AssinedToMeTasksPage";
 // import MyTasksPage from "../pages/MyTasksPage/MyTasksPage";
 
@@ -15,13 +16,23 @@ const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 const TasksPage = lazy(() => import("../pages/TasksPage/TasksPage"));
 const LoginPage = lazy(() => import("../pages/LoginPage/LoginPage"));
 const NotFoundPage = lazy(() => import("../pages/NotFoundPage/NotFoundPage"));
+const TasksDetailsPage = lazy(() =>
+  import("../pages/TasksDetailsPage/TasksDetailsPage")
+);
+const TaskComments = lazy(() =>
+  import("../components/TaskComments/TaskComments")
+);
+const TaskFiles = lazy(() => import("../components/TaskFiles/TaskFiles"));
 
 function App() {
   const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectorAuthIsRefreshing);
 
   useEffect(() => {
     dispatch(apiRefreshUser());
   }, [dispatch]);
+
+  if (isRefreshing) return <p>User is refreshing, please wait</p>;
 
   return (
     <>
@@ -40,7 +51,13 @@ function App() {
             path="/tasks/assigned-to-me"
             element={<PrivateRoute component={<TasksPage />} />}
           />
-          {/* <Route path="/tasks/{id}" element={<TasksDetailsPage />} /> */}
+          <Route
+            path="/tasks/:id"
+            element={<PrivateRoute component={<TasksDetailsPage />} />}
+          >
+            <Route path="comments" element={<TaskComments />} />
+            <Route path="files" element={<TaskFiles />} />
+          </Route>
           <Route
             path="/login_check"
             element={<RestrictedRoute component={<LoginPage />} />}

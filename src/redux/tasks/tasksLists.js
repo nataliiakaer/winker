@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  apiAddTask,
   // apiDeleteTask,
   apiGetAllTasks,
   apiGetMyTasks,
@@ -13,19 +12,15 @@ const INITIAL_STATE = {
   assignedTasks: [],
   isLoading: false,
   error: null,
-  modal: false,
 };
 
-const tasksSlice = createSlice({
-  name: "tasks",
+const tasksLists = createSlice({
+  name: "tasksLists",
   initialState: INITIAL_STATE,
-  reducers: {
-    setModal: (state, action) => {
-      state.modal = action.payload;
-    },
-  },
+
   extraReducers: (builder) => {
     builder
+
       .addCase(apiGetTasksAssignedToMe.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -63,20 +58,6 @@ const tasksSlice = createSlice({
       .addCase(apiGetAllTasks.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-      })
-
-      .addCase(apiAddTask.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(apiAddTask.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.myTasks.push(action.payload);
-        state.modal = false;
-      })
-      .addCase(apiAddTask.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
       });
 
     // .addCase(apiDeleteTask.pending, (state) => {
@@ -103,5 +84,4 @@ const tasksSlice = createSlice({
   },
 });
 
-export const { setModal } = tasksSlice.actions;
-export const tasksReducer = tasksSlice.reducer;
+export const tasksListsReducer = tasksLists.reducer;

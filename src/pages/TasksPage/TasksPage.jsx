@@ -5,7 +5,7 @@ import TasksList from "../../components/TasksList/TasksList";
 import css from "./TasksPage.module.css";
 import {
   selectorAllTasks,
-  selectorModalAddTask,
+  selectorAddTaskModal,
   selectorMyTasks,
   selectorTasksAssidnedToMe,
   selectorTasksError,
@@ -25,8 +25,8 @@ import {
   selectFilteredAssignedTasks,
   selectFilteredMyTasks,
 } from "../../redux/filters/selectors";
-import ModalAddTask from "../../components/ModalAddTask/ModalAddTask";
-import { setModal } from "../../redux/tasks/slice";
+import AddTaskModal from "../../components/AddTaskModal/AddTaskModal";
+import { setModal } from "../../redux/tasks/task.js";
 
 const TasksPage = () => {
   const isLoading = useSelector(selectorTasksIsLoading);
@@ -45,8 +45,8 @@ const TasksPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const modal = useSelector(selectorModalAddTask);
-  
+  const modal = useSelector(selectorAddTaskModal);
+
   const openModal = () => {
     dispatch(setModal(true));
   };
@@ -104,7 +104,7 @@ const TasksPage = () => {
         <button className={css.btnNewTask} type="button" onClick={openModal}>
           + Нове завдання
         </button>
-        {modal && <ModalAddTask closeModal={closeModal} />}
+        {modal && <AddTaskModal closeModal={closeModal} />}
       </div>
       <TasksFilters />
       <div className={css.contentWrapper}>

@@ -20,9 +20,9 @@ export const apiGetMyTasks = createAsyncThunk(
     try {
       const { data } = await instance.get("api/tasks/my-tasks");
       console.log(data);
-      return data; // те, що повертається з санки потрапляє в action.payload в статусі fullfilled
+      return data;
     } catch (error) {
-      return thunkApi.rejectWithValue(error.message); // те, що повертається з санки потрапляє в action.payload в статусі rejected
+      return thunkApi.rejectWithValue(error.message);
     }
   }
 );
@@ -57,12 +57,38 @@ export const apiAddTask = createAsyncThunk(
     try {
       const { data } = await instance.post("api/tasks", formData);
       console.log(data);
-      return data; // те, що повертається з санки потрапляє в action.payload в статусі fullfilled
+      return data;
     } catch (error) {
-      return thunkApi.rejectWithValue(error.message); // те, що повертається з санки потрапляє в action.payload в статусі rejected
+      return thunkApi.rejectWithValue(error.message);
     }
   }
 );
+
+export const apiGetTaskDetails = createAsyncThunk(
+  "tasks/getTaskDetails",
+  async (id, thunkApi) => {
+    try {
+      const { data } = await instance.get(`/api/tasks/${id}`);
+      console.log(data);
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
+// export const apiGetPostDetails = createAsyncThunk(
+//   "posts/getPostDetails",
+//   async (postId, thunkApi) => {
+//     try {
+//       const { data } = await axios.get(`https://dummyjson.com/posts/${postId}`);
+
+//       return data;
+//     } catch (error) {
+//       return thunkApi.rejectWithValue(error.message);
+//     }
+//   }
+// );
 
 // export const apiDeleteTask = createAsyncThunk(
 //   "tasks/deleteTask",
