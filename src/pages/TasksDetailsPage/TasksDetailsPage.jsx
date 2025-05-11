@@ -5,18 +5,24 @@ import { useEffect } from "react";
 import { apiGetTaskDetails } from "../../redux/tasks/operations";
 import {
   selectorTaskDetails,
-  selectorTaskkDetailsError,
-  selectorTaskkDetailsIsLoading,
+  selectorTaskDetailsError,
+  selectorTaskDetailsIsLoading,
 } from "../../redux/tasks/selectors";
 import Loader from "../../components/Loader/Loader";
+import css from "./TasksDetailsPage.module.css";
+import clsx from "clsx";
+
+const activeLinkClass = ({ isActive }) => {
+  return clsx(css.link, isActive && css.active);
+};
 
 const TasksDetailsPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
   const taskDetails = useSelector(selectorTaskDetails);
-  const isLoading = useSelector(selectorTaskkDetailsIsLoading);
-  const error = useSelector(selectorTaskkDetailsError);
+  const isLoading = useSelector(selectorTaskDetailsIsLoading);
+  const error = useSelector(selectorTaskDetailsError);
 
   console.log(id);
 
@@ -39,11 +45,21 @@ const TasksDetailsPage = () => {
         taskDetails?.id && (
           <div>
             Task id {id}
-            <Task task={taskDetails} />
-            <div>
-              <NavLink to="comments">Коментарі</NavLink>
-              <NavLink to="files">Файли</NavLink>
+            <div className={css.taskDatailContainer}>
+              <Task task={taskDetails} />
             </div>
+            <ul className={css.list}>
+              <li>
+                <NavLink className={activeLinkClass} to="comments">
+                  Коментарі
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className={activeLinkClass} to="files">
+                  Файли
+                </NavLink>
+              </li>
+            </ul>
             <div>
               <Outlet />
             </div>

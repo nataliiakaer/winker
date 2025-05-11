@@ -43,9 +43,9 @@ export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
     tasksLists: persistReducer(tasksPersistConfig, tasksListsReducer), // Зберігаємо tasks!
-    taskDetails: taskDetailsReducer,
     filters: persistReducer(filtersPersistConfig, filtersReducer),
     users: usersReducer,
+    taskDetails: taskDetailsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

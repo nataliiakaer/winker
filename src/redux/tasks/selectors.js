@@ -6,7 +6,9 @@ export const selectorTasksError = (state) => state.tasksLists.error;
 
 export const selectorAddTaskModal = (state) => state.taskDetails.modal;
 export const selectorTaskDetails = (state) => state.taskDetails.taskDetails;
-export const selectorTaskkDetailsIsLoading = (state) => state.taskDetails.isLoading;
-export const selectorTaskkDetailsError = (state) => state.taskDetails.error;
+export const selectorTaskDetailsIsLoading = (state) => state.taskDetails.isLoading;
+export const selectorTaskDetailsError = (state) => state.taskDetails.error;
+export const selectorTaskComments = (state) => state.taskDetails.comments;
+
 
 

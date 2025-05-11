@@ -77,6 +77,19 @@ export const apiGetTaskDetails = createAsyncThunk(
   }
 );
 
+export const apiGetTaskComments = createAsyncThunk(
+  "tasks/getTaskComments",
+  async (id, thunkApi) => {
+    try {
+      const { data } = await instance.get(`/api/tasks/${id}/comments`);
+      console.log(data);
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
 // export const apiGetPostDetails = createAsyncThunk(
 //   "posts/getPostDetails",
 //   async (postId, thunkApi) => {

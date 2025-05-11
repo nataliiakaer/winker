@@ -1,11 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiAddTask, apiGetTaskDetails } from "./operations.js";
+import {
+  apiAddTask,
+  apiGetTaskComments,
+  apiGetTaskDetails,
+} from "./operations.js";
 
 const INITIAL_STATE = {
   modal: false,
   taskDetails: null,
   isLoading: false,
   error: null,
+  comments: null,
 };
 
 const taskDetailsSlice = createSlice({
@@ -42,6 +47,19 @@ const taskDetailsSlice = createSlice({
         state.taskDetails = action.payload;
       })
       .addCase(apiGetTaskDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      .addCase(apiGetTaskComments.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(apiGetTaskComments.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.comments = action.payload;
+      })
+      .addCase(apiGetTaskComments.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });

@@ -1,0 +1,22 @@
+.taskDatailContainer {
+  margin-bottom: 20px;
+}
+
+.list {
+  display: flex;
+  gap: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid black;
+  border-bottom: 1px dashed black;
+  margin-bottom: 20px;
+}
+
+.link {
+  text-decoration: underline;
+  color: inherit;
+}
+
+.active {
+  color: rgb(15, 158, 79);
+}

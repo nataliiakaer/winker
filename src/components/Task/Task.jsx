@@ -5,7 +5,7 @@ import { selectorUsers } from "../../redux/user/selectors";
 
 const Task = ({
   task: {
-    // id,
+    id,
     title,
     status,
     wink_type,
@@ -40,6 +40,9 @@ const Task = ({
   return (
     <>
       <ul className={css.list}>
+        <li className={css.item}>
+          <p className={css.itemTitle}>ID: </p> {id}
+        </li>
         <li className={css.item}>
           <p className={css.itemTitle}>Назва завдання: </p> {title}
         </li>

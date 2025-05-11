@@ -14,7 +14,7 @@ const INITIAL_STATE = {
   error: null,
 };
 
-const tasksLists = createSlice({
+const tasksListsSlice = createSlice({
   name: "tasksLists",
   initialState: INITIAL_STATE,
 
@@ -84,4 +84,4 @@ const tasksLists = createSlice({
   },
 });
 
-export const tasksListsReducer = tasksLists.reducer;
+export const tasksListsReducer = tasksListsSlice.reducer;
