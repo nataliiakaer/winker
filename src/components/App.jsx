@@ -9,8 +9,7 @@ import { apiRefreshUser } from "../redux/auth/operations";
 import RestrictedRoute from "./RestrictedRoute";
 import PrivateRoute from "./PrivateRoute";
 import { selectorAuthIsRefreshing } from "../redux/auth/selectors";
-// import AssinedToMeTasksPage from "../pages/AssinedToMeTasksPage/AssinedToMeTasksPage";
-// import MyTasksPage from "../pages/MyTasksPage/MyTasksPage";
+import css from "./Loader/Loader.module.css";
 
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 const TasksPage = lazy(() => import("../pages/TasksPage/TasksPage"));
@@ -32,41 +31,44 @@ function App() {
     dispatch(apiRefreshUser());
   }, [dispatch]);
 
-  if (isRefreshing) return <p>User is refreshing, please wait</p>;
+  if (isRefreshing)
+    return (
+      <p className={css.container}>
+        Дані користувача оновлюються, будь ласка, зачекайте.
+      </p>
+    );
 
   return (
-    <>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route
-            path="/tasks"
-            element={<PrivateRoute component={<TasksPage />} />}
-          />
-          <Route
-            path="/tasks/my-tasks"
-            element={<PrivateRoute component={<TasksPage />} />}
-          />
-          <Route
-            path="/tasks/assigned-to-me"
-            element={<PrivateRoute component={<TasksPage />} />}
-          />
-          <Route
-            path="/tasks/:id"
-            element={<PrivateRoute component={<TasksDetailsPage />} />}
-          >
-            <Route path="comments" element={<TaskComments />} />
-            <Route path="files" element={<TaskFiles />} />
-          </Route>
-          <Route
-            path="/login_check"
-            element={<RestrictedRoute component={<LoginPage />} />}
-          />
-          <Route path="*" element={<NotFoundPage />} /> // перехід за неіснуючим
-          посиланням
-        </Routes>
-      </Layout>
-    </>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/tasks"
+          element={<PrivateRoute component={<TasksPage />} />}
+        />
+        <Route
+          path="/tasks/my-tasks"
+          element={<PrivateRoute component={<TasksPage />} />}
+        />
+        <Route
+          path="/tasks/assigned-to-me"
+          element={<PrivateRoute component={<TasksPage />} />}
+        />
+        <Route
+          path="/tasks/:id"
+          element={<PrivateRoute component={<TasksDetailsPage />} />}
+        >
+          <Route path="comments" element={<TaskComments />} />
+          <Route path="files" element={<TaskFiles />} />
+        </Route>
+        <Route
+          path="/login_check"
+          element={<RestrictedRoute component={<LoginPage />} />}
+        />
+        <Route path="*" element={<NotFoundPage />} /> // перехід за неіснуючим
+        посиланням
+      </Routes>
+    </Layout>
   );
 }
 

@@ -13,6 +13,7 @@ const Task = ({
     user_id,
     created_at,
     finished_date,
+    taskHasComments,
   },
   // onDeleteTask,
 }) => {
@@ -69,6 +70,14 @@ const Task = ({
         <li className={css.item}>
           <p className={css.itemTitle}>Дата виконання: </p>
           {formatDate(finished_date)}
+        </li>
+        <li className={css.item}>
+          <p className={css.itemTitle}>Comments: </p>{" "}
+          {taskHasComments.length === 0 ? (
+            <p>Коментарі відсутні</p>
+          ) : (
+            <p>Коментарі присутні</p>
+          )}
         </li>
       </ul>
 

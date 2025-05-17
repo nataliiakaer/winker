@@ -5,8 +5,8 @@ import { useEffect } from "react";
 import { apiGetTaskDetails } from "../../redux/tasks/operations";
 import {
   selectorTaskDetails,
-  selectorTaskDetailsError,
-  selectorTaskDetailsIsLoading,
+  selectorTasksError,
+  selectorTasksIsLoading,
 } from "../../redux/tasks/selectors";
 import Loader from "../../components/Loader/Loader";
 import css from "./TasksDetailsPage.module.css";
@@ -21,18 +21,17 @@ const TasksDetailsPage = () => {
   const dispatch = useDispatch();
 
   const taskDetails = useSelector(selectorTaskDetails);
-  const isLoading = useSelector(selectorTaskDetailsIsLoading);
-  const error = useSelector(selectorTaskDetailsError);
-
-  console.log(id);
+  const isLoading = useSelector(selectorTasksIsLoading);
+  const error = useSelector(selectorTasksError);
 
   useEffect(() => {
     if (!id) return;
-
     dispatch(apiGetTaskDetails(id));
   }, [id, dispatch]);
 
-  console.log(taskDetails);
+  console.log(new Date());
+
+  console.log(new Date().toISOString());
 
   return (
     <>
@@ -42,7 +41,7 @@ const TasksDetailsPage = () => {
           {error}. Будь ласка, спробуйте перезавантажити сторінку!
         </p>
       ) : (
-        taskDetails?.id && (
+        taskDetails !== null && (
           <div>
             Task id {id}
             <div className={css.taskDatailContainer}>
@@ -60,9 +59,7 @@ const TasksDetailsPage = () => {
                 </NavLink>
               </li>
             </ul>
-            <div>
-              <Outlet />
-            </div>
+            <Outlet />
           </div>
         )
       )}

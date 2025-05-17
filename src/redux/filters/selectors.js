@@ -1,9 +1,9 @@
 import { createSelector } from "@reduxjs/toolkit";
 
 // Вибираємо всі завдання
-export const selectAllTasks = (state) => state.tasksLists.allTasks;
-export const selectMyTasks = (state) => state.tasksLists.myTasks;
-export const selectAssignedTasks = (state) => state.tasksLists.assignedTasks;
+export const selectAllTasks = (state) => state.tasks.allTasks;
+export const selectMyTasks = (state) => state.tasks.myTasks;
+export const selectAssignedTasks = (state) => state.tasks.assignedTasks;
 
 // Вибираємо фільтри
 export const selectAllTasksFilters = (state) => state.filters.tasksFilters;

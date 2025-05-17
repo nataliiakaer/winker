@@ -17,10 +17,10 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { tasksListsReducer } from "./tasks/tasksLists";
+import { tasksListsReducer } from "./tasks/slice";
 import { filtersReducer } from "./filters/slice";
 import { usersReducer } from "./user/slice";
-import { taskDetailsReducer } from "./tasks/task";
+import { taskCommentsReducer } from "./comments/slice";
 
 const authPersistConfig = {
   key: "auth",
@@ -31,7 +31,6 @@ const authPersistConfig = {
 const tasksPersistConfig = {
   key: "tasks",
   storage,
-  whitelist: ["allTasks", "myTasks", "assignedTasks"], // тільки масиви завдань
 };
 
 const filtersPersistConfig = {
@@ -42,13 +41,14 @@ const filtersPersistConfig = {
 export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
-    tasksLists: persistReducer(tasksPersistConfig, tasksListsReducer), // Зберігаємо tasks!
+    tasks: persistReducer(tasksPersistConfig, tasksListsReducer), // Зберігаємо tasks!
     filters: persistReducer(filtersPersistConfig, filtersReducer),
     users: usersReducer,
-    taskDetails: taskDetailsReducer,
+    taskComments: taskCommentsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
+      immutableCheck: false, // вимикає важку перевірку мутабельних даних - apiGetAllTasks
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },

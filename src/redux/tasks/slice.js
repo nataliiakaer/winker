@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  apiAddTask,
   // apiDeleteTask,
   apiGetAllTasks,
   apiGetMyTasks,
+  apiGetTaskDetails,
   apiGetTasksAssignedToMe,
 } from "./operations";
 
@@ -10,14 +12,20 @@ const INITIAL_STATE = {
   allTasks: [],
   myTasks: [],
   assignedTasks: [],
+  modal: false,
+  taskDetails: null,
   isLoading: false,
   error: null,
 };
 
-const tasksListsSlice = createSlice({
-  name: "tasksLists",
+const tasksSlice = createSlice({
+  name: "tasks",
   initialState: INITIAL_STATE,
-
+  reducers: {
+    setModal: (state, action) => {
+      state.modal = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
 
@@ -58,6 +66,33 @@ const tasksListsSlice = createSlice({
       .addCase(apiGetAllTasks.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+
+      .addCase(apiAddTask.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(apiAddTask.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.myTasks.push(action.payload);
+        state.modal = false;
+      })
+      .addCase(apiAddTask.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      .addCase(apiGetTaskDetails.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(apiGetTaskDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.taskDetails = action.payload;
+      })
+      .addCase(apiGetTaskDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
 
     // .addCase(apiDeleteTask.pending, (state) => {
@@ -84,4 +119,5 @@ const tasksListsSlice = createSlice({
   },
 });
 
-export const tasksListsReducer = tasksListsSlice.reducer;
+export const { setModal } = tasksSlice.actions;
+export const tasksListsReducer = tasksSlice.reducer;

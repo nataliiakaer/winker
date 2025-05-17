@@ -6,7 +6,6 @@ export const apiGetTasksAssignedToMe = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const { data } = await instance.get("api/tasks/assigned-to-me");
-      console.log(data);
       return data; // те, що повертається з санки потрапляє в action.payload в статусі fullfilled
     } catch (error) {
       return thunkApi.rejectWithValue(error.message); // те, що повертається з санки потрапляє в action.payload в статусі rejected
@@ -19,7 +18,6 @@ export const apiGetMyTasks = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const { data } = await instance.get("api/tasks/my-tasks");
-      console.log(data);
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -37,12 +35,10 @@ export const apiGetAllTasks = createAsyncThunk(
       ]);
       // Об'єднуємо всі завдання в один масив
       const allTasks = [...assignedResponse.data, ...myTasksResponse.data];
-      console.log(allTasks);
       // Унікалізуємо за id, щоб не було дублікатів в списку. В інакшому разі виникне помилка
       const uniqueTasks = Array.from(
         new Map(allTasks.map((task) => [task.id, task])).values()
       );
-      console.log(uniqueTasks);
 
       return uniqueTasks;
     } catch (error) {
@@ -56,7 +52,6 @@ export const apiAddTask = createAsyncThunk(
   async (formData, thunkApi) => {
     try {
       const { data } = await instance.post("api/tasks", formData);
-      console.log(data);
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -76,32 +71,6 @@ export const apiGetTaskDetails = createAsyncThunk(
     }
   }
 );
-
-export const apiGetTaskComments = createAsyncThunk(
-  "tasks/getTaskComments",
-  async (id, thunkApi) => {
-    try {
-      const { data } = await instance.get(`/api/tasks/${id}/comments`);
-      console.log(data);
-      return data;
-    } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
-    }
-  }
-);
-
-// export const apiGetPostDetails = createAsyncThunk(
-//   "posts/getPostDetails",
-//   async (postId, thunkApi) => {
-//     try {
-//       const { data } = await axios.get(`https://dummyjson.com/posts/${postId}`);
-
-//       return data;
-//     } catch (error) {
-//       return thunkApi.rejectWithValue(error.message);
-//     }
-//   }
-// );
 
 // export const apiDeleteTask = createAsyncThunk(
 //   "tasks/deleteTask",

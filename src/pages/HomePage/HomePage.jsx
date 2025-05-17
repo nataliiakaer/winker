@@ -18,19 +18,6 @@ const HomePage = () => {
   ) : (
     <Navigate to="/login_check" replace />
   );
-
-  // const navigate = useNavigate();
-  // const isLoggedIn = useSelector(selectorAuthIsLoggedIn);
-
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     navigate("/tasks");
-  //   } else {
-  //     navigate("/login_check");
-  //   }
-  // }, [isLoggedIn, navigate]);
-
-  // return null; // Нічого не рендеримо, бо одразу перенаправляємо
 };
 
 export default HomePage;
