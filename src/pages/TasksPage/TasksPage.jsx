@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TasksList from "../../components/TasksList/TasksList";
 import css from "./TasksPage.module.css";
 import {
-  selectorAllTasks,
+  // selectorAllTasks,
   selectorAddTaskModal,
   selectorMyTasks,
   selectorTasksAssidnedToMe,
@@ -14,14 +14,14 @@ import {
 import Loader from "../../components/Loader/Loader";
 import { useEffect } from "react";
 import {
-  apiGetAllTasks,
+  // apiGetAllTasks,
   apiGetMyTasks,
   apiGetTasksAssignedToMe,
 } from "../../redux/tasks/operations";
 import { useLocation } from "react-router-dom";
 import TasksFilters from "../../components/TasksFilters/TasksFilters";
 import {
-  selectFilteredAllTasks,
+  // selectFilteredAllTasks,
   selectFilteredAssignedTasks,
   selectFilteredMyTasks,
 } from "../../redux/filters/selectors";
@@ -33,12 +33,12 @@ const TasksPage = () => {
   const error = useSelector(selectorTasksError);
 
   // завдання (без фільтрів)
-  const allTasksList = useSelector(selectorAllTasks);
+  // const allTasksList = useSelector(selectorAllTasks);
   const myTasksList = useSelector(selectorMyTasks);
   const assignedTasksList = useSelector(selectorTasksAssidnedToMe);
 
   // завдання (з фільтрами)
-  const allTasks = useSelector(selectFilteredAllTasks);
+  // const allTasks = useSelector(selectFilteredAllTasks);
   const myTasks = useSelector(selectFilteredMyTasks);
   const assignedTasks = useSelector(selectFilteredAssignedTasks);
 
@@ -61,11 +61,13 @@ const TasksPage = () => {
 
   useEffect(() => {
     const fetchTasks = async () => {
-      if (location.pathname === "/tasks") {
-        if (allTasksList.length === 0) {
-          dispatch(apiGetAllTasks());
-        }
-      } else if (location.pathname === "/tasks/my-tasks") {
+      // if (location.pathname === "/tasks") {
+      //   if (allTasksList.length === 0) {
+      //     dispatch(apiGetAllTasks());
+      //   }
+      // } else 
+      
+      if (location.pathname === "/tasks/my-tasks") {
         if (myTasksList.length === 0) {
           dispatch(apiGetMyTasks());
         }
@@ -80,15 +82,16 @@ const TasksPage = () => {
   }, [
     dispatch,
     location.pathname,
-    allTasksList.length,
+    // allTasksList.length,
     myTasksList.length,
     assignedTasksList.length,
   ]);
 
   const getVisibleTasks = () => {
-    if (location.pathname === "/tasks") {
-      return allTasks;
-    } else if (location.pathname === "/tasks/my-tasks") {
+    // if (location.pathname === "/tasks") {
+    //   return allTasks;
+    // } else 
+    if (location.pathname === "/tasks/my-tasks") {
       return myTasks;
     } else if (location.pathname === "/tasks/assigned-to-me") {
       return assignedTasks;

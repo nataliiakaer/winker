@@ -29,10 +29,6 @@ const TasksDetailsPage = () => {
     dispatch(apiGetTaskDetails(id));
   }, [id, dispatch]);
 
-  console.log(new Date());
-
-  console.log(new Date().toISOString());
-
   return (
     <>
       {isLoading && <Loader />}

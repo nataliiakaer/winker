@@ -7,7 +7,11 @@ import * as Yup from "yup";
 import { apiCurrentUser } from "../../redux/user/operations";
 import { selectorAuthIsLoggedIn } from "../../redux/auth/selectors";
 import { selectorCurrentUser, selectorUsers } from "../../redux/user/selectors";
-import { apiAddTask, apiGetMyTasks } from "../../redux/tasks/operations";
+import {
+  apiAddTask,
+  apiGetMyTasks,
+  apiGetTasksAssignedToMe,
+} from "../../redux/tasks/operations";
 // import toast from "react-hot-toast";
 
 const AddTaskModal = ({ closeModal }) => {
@@ -38,10 +42,12 @@ const AddTaskModal = ({ closeModal }) => {
   });
 
   const onAddTask = (formData) => {
+    console.log(formData);
     dispatch(apiAddTask(formData)).then((res) => {
       // якщо додавання успішне — оновити список
       if (!res.error) {
         dispatch(apiGetMyTasks());
+        dispatch(apiGetTasksAssignedToMe());
         closeModal();
       }
     });
@@ -60,20 +66,13 @@ const AddTaskModal = ({ closeModal }) => {
     const newTask = {
       title,
       description,
-      created_at: new Date(),
+      created_at: new Date().toISOString(),
       task_type: 0,
-      type_base_plane_date: new Date(),
-      type_reg_daily_finished_time: new Date(),
-      type_reg_weekly_day: "",
-      type_reg_weekly_time: new Date(),
-      type_reg_month_day: 0,
-      type_reg_month_time: new Date(),
-      finished_date: new Date(dateFinished),
+      finished_date: new Date(dateFinished).toISOString(),
       wink_type: parseInt(speed),
       status: 0,
       user_id: currentUser.id,
       performer_id: parseInt(performerId),
-      parent: "",
       list_enable: isList,
     };
 

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   apiAddTask,
   // apiDeleteTask,
-  apiGetAllTasks,
+  // apiGetAllTasks,
   apiGetMyTasks,
   apiGetTaskDetails,
   apiGetTasksAssignedToMe,
@@ -55,18 +55,18 @@ const tasksSlice = createSlice({
         state.error = action.payload;
       })
 
-      .addCase(apiGetAllTasks.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(apiGetAllTasks.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.allTasks = action.payload;
-      })
-      .addCase(apiGetAllTasks.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      })
+      // .addCase(apiGetAllTasks.pending, (state) => {
+      //   state.isLoading = true;
+      //   state.error = null;
+      // })
+      // .addCase(apiGetAllTasks.fulfilled, (state, action) => {
+      //   state.isLoading = false;
+      //   state.allTasks = action.payload;
+      // })
+      // .addCase(apiGetAllTasks.rejected, (state, action) => {
+      //   state.isLoading = false;
+      //   state.error = action.payload;
+      // })
 
       .addCase(apiAddTask.pending, (state) => {
         state.isLoading = true;
