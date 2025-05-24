@@ -1,4 +1,10 @@
-.list {
+.listList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.listGrid {
   display: flex;
   flex-wrap: wrap;
   gap: 25px;
@@ -6,7 +12,6 @@
 
 .item {
   display: flex;
-  align-items: center;
   border: 1px solid #212121;
   padding: 10px;
   color: inherit;
@@ -15,10 +20,24 @@
   @media screen and (min-width: 768px) {
     flex-direction: column;
     gap: 45px;
-    width: calc((100% - 72px) / 2);
   }
 
   @media screen and (min-width: 1200px) {
     flex-direction: row;
   }
+}
+
+.item:hover,
+.item:focus-within {
+  /* box-shadow: 0 0 4px rgba(25, 118, 210, 0.5); */
+  transform: translateY(-2px);
+  background-color: rgb(243, 243, 242);
+}
+
+.itemList {
+  max-width: 100%;
+}
+
+.itemGrid {
+  width: calc((100% - 72px) / 2);
 }

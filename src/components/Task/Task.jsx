@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 import css from "./Task.module.css";
-// import { MdDelete } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 import { selectorUsers } from "../../redux/user/selectors";
+
 
 const Task = ({
   task: {

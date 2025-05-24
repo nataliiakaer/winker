@@ -5,12 +5,16 @@ import Task from "../Task/Task";
 // import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectorListViewMode } from "../../redux/listViewMode/selector";
+import clsx from "clsx";
 
 const TasksList = ({ tasks, isLoading }) => {
   const location = useLocation();
   // const dispatch = useDispatch();
   const MotionUl = motion.ul;
   const MotionLi = motion.li;
+  const viewMode = useSelector(selectorListViewMode);
 
   if (!isLoading && (!tasks || tasks.length === 0)) {
     return <p>Список завдань порожній</p>;
@@ -21,8 +25,7 @@ const TasksList = ({ tasks, isLoading }) => {
   );
 
   // const onDeleteTask = (taskId) => {
-  //   const action = apiDeleteTask(taskId);
-  //   dispatch(action)
+  //   dispatch(apiDeleteTask(taskId))
   //     .unwrap()
   //     .then(() => {
   //       toast("Завдання успішно видалено");
@@ -32,7 +35,7 @@ const TasksList = ({ tasks, isLoading }) => {
   return (
     <AnimatePresence mode="wait">
       <MotionUl
-        className={css.list}
+        className={viewMode === "grid" ? css.listGrid : css.listList}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -45,7 +48,10 @@ const TasksList = ({ tasks, isLoading }) => {
               state={{ from: location }}
               to={`/tasks/${task.id}`}
               key={task.id}
-              className={css.item}
+              className={clsx(
+                css.item,
+                viewMode === "grid" ? css.itemGrid : css.itemList
+              )}
             >
               <MotionLi
                 key={task.id}

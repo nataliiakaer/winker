@@ -1,5 +1,3 @@
-
-
 import { useParams } from "react-router-dom";
 import css from "./TaskComments.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,9 +5,21 @@ import Loader from "../Loader/Loader";
 import { useEffect, useState } from "react";
 import { selectorUsers } from "../../redux/user/selectors";
 import toast from "react-hot-toast";
-import { selectorTasksError, selectorTasksIsLoading } from "../../redux/tasks/selectors";
+import {
+  selectorTasksError,
+  selectorTasksIsLoading,
+} from "../../redux/tasks/selectors";
 import { selectorTaskComments } from "../../redux/comments/selector";
-import { apiAddTaskComment, apiDeleteTaskComment, apiGetTaskComments } from "../../redux/comments/operations";
+import {
+  apiAddTaskComment,
+  apiDeleteTaskComment,
+  apiGetTaskComments,
+} from "../../redux/comments/operations";
+import {
+  apiGetMyTasks,
+  apiGetTaskDetails,
+  apiGetTasksAssignedToMe,
+} from "../../redux/tasks/operations";
 
 const TaskComments = () => {
   const { id } = useParams();
@@ -30,28 +40,40 @@ const TaskComments = () => {
 
   const handleAddComment = () => {
     if (!newComment.trim()) return;
-
+  
     const now = new Date().toISOString();
     const formData = {
       comment: newComment.trim(),
       createdAt: now,
       updatedAt: now,
     };
-
-    dispatch(apiAddTaskComment({ id, formData }));
+  
+    dispatch(apiAddTaskComment({ id, formData }))
+      .unwrap()
+      .then(() => {
+        dispatch(apiGetMyTasks());
+        dispatch(apiGetTasksAssignedToMe());
+        dispatch(apiGetTaskDetails(id)); 
+      });
+  
     setNewComment("");
     setIsInputActive(false);
   };
-
+  
   const handleDelete = (commentId) => {
     const confirmDelete = window.confirm(
       "Ви впевнені, що хочете видалити цей коментар?"
     );
     if (!confirmDelete) return;
-
+  
     dispatch(apiDeleteTaskComment({ taskId: id, commentId }))
       .unwrap()
-      .then(() => toast.success("Коментар видалено"))
+      .then(() => {
+        toast.success("Коментар видалено");
+        dispatch(apiGetMyTasks());
+        dispatch(apiGetTasksAssignedToMe());
+        dispatch(apiGetTaskDetails(id)); 
+      })
       .catch(() => toast.error("Помилка при видаленні"));
   };
 

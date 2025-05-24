@@ -21,6 +21,7 @@ import { tasksListsReducer } from "./tasks/slice";
 import { filtersReducer } from "./filters/slice";
 import { usersReducer } from "./user/slice";
 import { taskCommentsReducer } from "./comments/slice";
+import { listViewModeReducer } from "./listViewMode/slice";
 
 const authPersistConfig = {
   key: "auth",
@@ -38,6 +39,11 @@ const filtersPersistConfig = {
   storage,
 };
 
+const listViewModeConfig = {
+  key: 'viewMode',
+  storage,
+};
+
 export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
@@ -45,6 +51,7 @@ export const store = configureStore({
     filters: persistReducer(filtersPersistConfig, filtersReducer),
     users: usersReducer,
     taskComments: taskCommentsReducer,
+    listViewMode: persistReducer(listViewModeConfig, listViewModeReducer),
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

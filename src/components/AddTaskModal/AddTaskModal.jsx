@@ -12,7 +12,7 @@ import {
   apiGetMyTasks,
   apiGetTasksAssignedToMe,
 } from "../../redux/tasks/operations";
-// import toast from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const AddTaskModal = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -43,20 +43,19 @@ const AddTaskModal = ({ closeModal }) => {
 
   const onAddTask = (formData) => {
     console.log(formData);
-    dispatch(apiAddTask(formData)).then((res) => {
-      // якщо додавання успішне — оновити список
-      if (!res.error) {
-        dispatch(apiGetMyTasks());
-        dispatch(apiGetTasksAssignedToMe());
-        closeModal();
-      }
-    });
-
-    // dispatch(apiAddTask(formData))
-    //   .unwrap()
-    //   .then(() => {
-    //     toast("Contact added successfully");
-    //   });
+    dispatch(apiAddTask(formData))
+      .unwrap()
+      .then(() => {
+        toast("Завдання успішно добавлено");
+      })
+      .then((res) => {
+        // якщо додавання успішне — оновити список
+        if (!res.error) {
+          dispatch(apiGetMyTasks());
+          dispatch(apiGetTasksAssignedToMe());
+          closeModal();
+        }
+      });
   };
 
   const handleSubmit = (values, actions) => {
@@ -80,67 +79,6 @@ const AddTaskModal = ({ closeModal }) => {
     actions.resetForm();
     closeModal();
   };
-
-  // const handleSubmit = (values) => {
-  //   const { title, isList, dateFinished, performerId, speed } = values;
-
-  //   const description = isList
-  //     ? JSON.stringify([
-  //         {
-  //           id: 1,
-  //           task_id: 0,
-  //           list: "1",
-  //           checklist: 0,
-  //           create_date: Math.floor(Date.now() / 1000),
-  //           sended: null,
-  //         },
-  //         {
-  //           id: 2,
-  //           task_id: 0,
-  //           list: "2",
-  //           checklist: 0,
-  //           create_date: Math.floor(Date.now() / 1000),
-  //           sended: null,
-  //         },
-  //         {
-  //           id: 3,
-  //           task_id: 0,
-  //           list: "3",
-  //           checklist: 0,
-  //           create_date: Math.floor(Date.now() / 1000),
-  //           sended: null,
-  //         },
-  //       ])
-  //     : "string";
-
-  //   const formData = {
-  //     title,
-  //     description,
-  //     created_at: new Date().toISOString(),
-  //     task_type: 0,
-  //     type_base_plane_date: new Date().toISOString(),
-  //     type_reg_daily_finished_time: new Date().toISOString(),
-  //     type_reg_weekly_day: "",
-  //     type_reg_weekly_time: new Date().toISOString(),
-  //     type_reg_month_day: 0,
-  //     type_reg_month_time: new Date().toISOString(),
-  //     finished_date: new Date(dateFinished).toISOString(),
-  //     wink_type: parseInt(speed),
-  //     status: 0,
-  //     user_id: currentUser.id,
-  //     performer_id: parseInt(performerId),
-  //     parent: "",
-  //     list_enable: isList,
-  //   };
-
-  //   dispatch(apiAddTask(formData)).then((res) => {
-  //     // якщо додавання успішне — оновити список
-  //     if (!res.error) {
-  //       dispatch(apiGetMyTasks());
-  //       closeModal();
-  //     }
-  //   });
-  // };
 
   return (
     <div className={css.backdrop}>

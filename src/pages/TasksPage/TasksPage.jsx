@@ -27,6 +27,7 @@ import {
 } from "../../redux/filters/selectors";
 import AddTaskModal from "../../components/AddTaskModal/AddTaskModal";
 import { setModal } from "../../redux/tasks/slice";
+import ViewModeToggle from "../../components/ViewModeToggle/ViewModeToggle";
 
 const TasksPage = () => {
   const isLoading = useSelector(selectorTasksIsLoading);
@@ -65,8 +66,8 @@ const TasksPage = () => {
       //   if (allTasksList.length === 0) {
       //     dispatch(apiGetAllTasks());
       //   }
-      // } else 
-      
+      // } else
+
       if (location.pathname === "/tasks/my-tasks") {
         if (myTasksList.length === 0) {
           dispatch(apiGetMyTasks());
@@ -90,7 +91,7 @@ const TasksPage = () => {
   const getVisibleTasks = () => {
     // if (location.pathname === "/tasks") {
     //   return allTasks;
-    // } else 
+    // } else
     if (location.pathname === "/tasks/my-tasks") {
       return myTasks;
     } else if (location.pathname === "/tasks/assigned-to-me") {
@@ -117,6 +118,7 @@ const TasksPage = () => {
             {error}. Будь ласка, спробуйте перезавантажити сторінку!
           </p>
         )}
+        <ViewModeToggle />
         <TasksList tasks={visibleTasks} isLoading={isLoading} />
       </div>
     </div>
