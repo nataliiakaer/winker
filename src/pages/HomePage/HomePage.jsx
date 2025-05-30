@@ -1,23 +1,60 @@
-// При переході на адресу "/", відбувається автоматичний перехід на завдання або сторінку входу.
-//Щоб автоматично перенаправляти користувача на потрібну сторінку в залежності від авторизації, потрібно використовувати useEffect разом із useNavigate з бібліотеки react-router-dom.
+// Компонент завантажує всі завдання, тобто об'єднання "/tasks/my-tasks" та "/tasks/assigned-to-me"
 
-/* Для створення посилань використовуються компоненти <Link> та <NavLink>. 
-Вони рендерять тег <a>, але стандартна поведінка посилання змінена так, що при натисканні просто оновлюється URL в адресному рядку браузера, без перезавантаження сторінки.
-Компонент <NavLink> відрізняється тільки тим, що може мати додаткові стилі, якщо поточний URL збігається зі значенням пропcа to. */
-
-// import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import { selectorAuthIsLoggedIn } from "../../redux/auth/selectors";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+// import { selectorAllTasks } from "../../redux/tasks/selectors";
+// import { selectFilteredAllTasks } from "../../redux/filters/selectors";
+// import { apiGetAllTasks } from "../../redux/tasks/operations";
+import TasksContainer from "../../components/TasksContainer/TasksContainer";
+import {
+  apiGetMyTasks,
+  apiGetTasksAssignedToMe,
+} from "../../redux/tasks/operations";
+import { selectFilteredAllTasks } from "../../redux/filters/selectors";
+import {
+  selectorMyTasks,
+  selectorTasksAssidnedToMe,
+} from "../../redux/tasks/selectors";
 
 const HomePage = () => {
-  const isLoggedIn = useSelector(selectorAuthIsLoggedIn);
+  const dispatch = useDispatch();
+  const myTasksList = useSelector(selectorMyTasks); // завдання (без фільтрів)
+  const assignedTasksList = useSelector(selectorTasksAssidnedToMe); // завдання (без фільтрів)
+  const allTasksList = [...myTasksList, ...assignedTasksList]; // Об'єднуємо всі завдання в один масив
 
-  return isLoggedIn ? (
-    <Navigate to="/tasks" replace />
-  ) : (
-    <Navigate to="/login_check" replace />
+  // const myTasks = useSelector(selectFilteredMyTasks); // завдання (з фільтрами)
+  // const assignedTasks = useSelector(selectFilteredAssignedTasks); // завдання (з фільтрами)
+  // const allTasks = [...myTasks, ...assignedTasks]; // Об'єднуємо всі відфільтровані завдання в один масив
+  const allTasks = useSelector(selectFilteredAllTasks); // завдання (з фільтрами)
+
+  // Унікалізуємо за id, щоб не було дублікатів в списку. В інакшому разі виникне помилка
+  const uniqueAllTasksList = Array.from(
+    new Map(allTasksList.map((task) => [task.id, task])).values()
   );
+
+  useEffect(() => {
+    // перевірка, чи список завдань вже був завантажений, щоб не dispatch санку кожного разу
+    if (uniqueAllTasksList.length === 0) {
+      dispatch(apiGetMyTasks());
+      dispatch(apiGetTasksAssignedToMe());
+    }
+  }, [dispatch, uniqueAllTasksList.length]);
+
+  const visibleTasks = allTasks;
+
+  // const allTasksList = useSelector(selectorAllTasks); // завдання (без фільтрів)
+  // const allTasks = useSelector(selectFilteredAllTasks); // завдання (з фільтрами)
+
+  // useEffect(() => {
+  //   // перевірка, чи список завдань вже був завантажений, щоб не dispatch санку кожного разу
+  //   if (allTasksList.length === 0) {
+  //     dispatch(apiGetAllTasks());
+  //   }
+  // }, [dispatch, allTasksList.length]);
+
+  // const visibleTasks = allTasks;
+
+  return <TasksContainer tasks={visibleTasks} />;
 };
 
 export default HomePage;

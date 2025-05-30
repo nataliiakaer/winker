@@ -47,14 +47,13 @@ const AddTaskModal = ({ closeModal }) => {
       .unwrap()
       .then(() => {
         toast("Завдання успішно добавлено");
+        dispatch(apiGetMyTasks());
+        dispatch(apiGetTasksAssignedToMe());
+        closeModal();
       })
-      .then((res) => {
-        // якщо додавання успішне — оновити список
-        if (!res.error) {
-          dispatch(apiGetMyTasks());
-          dispatch(apiGetTasksAssignedToMe());
-          closeModal();
-        }
+      .catch((err) => {
+        toast.error("Помилка при додаванні завдання");
+        console.error(err);
       });
   };
 

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   apiAddTask,
+  // apiGetAllTasks,
   // apiDeleteTask,
   apiGetMyTasks,
   apiGetTaskDetails,
@@ -8,7 +9,7 @@ import {
 } from "./operations";
 
 const INITIAL_STATE = {
-  allTasks: [],
+  // allTasks: [],
   myTasks: [],
   assignedTasks: [],
   modal: false,
@@ -28,18 +29,18 @@ const tasksSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
-      .addCase(apiGetTasksAssignedToMe.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(apiGetTasksAssignedToMe.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.assignedTasks = action.payload;
-      })
-      .addCase(apiGetTasksAssignedToMe.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      })
+      // .addCase(apiGetAllTasks.pending, (state) => {
+      //   state.isLoading = true;
+      //   state.error = null;
+      // })
+      // .addCase(apiGetAllTasks.fulfilled, (state, action) => {
+      //   state.isLoading = false;
+      //   state.allTasks = action.payload;
+      // })
+      // .addCase(apiGetAllTasks.rejected, (state, action) => {
+      //   state.isLoading = false;
+      //   state.error = action.payload;
+      // })
 
       .addCase(apiGetMyTasks.pending, (state) => {
         state.isLoading = true;
@@ -54,13 +55,33 @@ const tasksSlice = createSlice({
         state.error = action.payload;
       })
 
+      .addCase(apiGetTasksAssignedToMe.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(apiGetTasksAssignedToMe.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.assignedTasks = action.payload;
+      })
+      .addCase(apiGetTasksAssignedToMe.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
       .addCase(apiAddTask.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
       .addCase(apiAddTask.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.myTasks.push(action.payload);
+        const newTask = action.payload;
+        // state.allTasks.push(newTask);
+        // Якщо я створив задачу — додаємо в мій список
+        state.myTasks.push(newTask);
+        // Якщо задача призначена мені — додаємо і туди
+        if (newTask.assignee === state.users.currentUser) {
+          state.assignedTasks.push(newTask);
+        }
         state.modal = false;
       })
       .addCase(apiAddTask.rejected, (state, action) => {

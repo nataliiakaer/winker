@@ -32,7 +32,7 @@ const UserMenu = () => {
   return (
     <>
       <div className={css.navContainer}>
-        <NavLink to="/tasks" end className={activeLinkClass}>
+        <NavLink to="/" end className={activeLinkClass}>
           Всі завдання
         </NavLink>
         <NavLink to="/tasks/my-tasks" className={activeLinkClass}>

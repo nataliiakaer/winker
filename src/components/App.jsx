@@ -12,7 +12,12 @@ import { selectorAuthIsRefreshing } from "../redux/auth/selectors";
 import css from "./Loader/Loader.module.css";
 
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
-const TasksPage = lazy(() => import("../pages/TasksPage/TasksPage"));
+const AddTaskModalPage = lazy(() => import("../pages/AddTaskModalPage/AddTaskModalPage"));
+const MyTasksPage = lazy(() => import("../pages/MyTasksPage/MyTasksPage"));
+const AssignedToMePage = lazy(() =>
+  import("../pages/AssignedToMePage/AssignedToMePage")
+);
+
 const LoginPage = lazy(() => import("../pages/LoginPage/LoginPage"));
 const NotFoundPage = lazy(() => import("../pages/NotFoundPage/NotFoundPage"));
 const TasksDetailsPage = lazy(() =>
@@ -42,17 +47,17 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        {/* <Route
+        <Route
           path="/tasks"
-          element={<PrivateRoute component={<TasksPage />} />}
-        /> */}
+          element={<PrivateRoute component={<AddTaskModalPage />} />}
+        />
         <Route
           path="/tasks/my-tasks"
-          element={<PrivateRoute component={<TasksPage />} />}
+          element={<PrivateRoute component={<MyTasksPage />} />}
         />
         <Route
           path="/tasks/assigned-to-me"
-          element={<PrivateRoute component={<TasksPage />} />}
+          element={<PrivateRoute component={<AssignedToMePage />} />}
         />
         <Route
           path="/tasks/:id"

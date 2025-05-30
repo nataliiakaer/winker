@@ -126,7 +126,7 @@ const TasksFilters = () => {
   };
 
   const handleResetFilters = () => {
-    if (location.pathname === "/tasks") {
+    if (location.pathname === "/") {
       dispatch(resetTasksFilters());
     } else if (location.pathname === "/tasks/my-tasks") {
       dispatch(resetMyTasksFilters());

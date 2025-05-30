@@ -20,9 +20,20 @@ const TasksList = ({ tasks, isLoading }) => {
     return <p>Список завдань порожній</p>;
   }
 
-  const sortTaskDate = tasks.sort(
-    (a, b) => new Date(b.created_at) - new Date(a.created_at)
-  );
+  // Сортування по декількох критеріях: спочатку по даті створення від новіших до старіших, а якщо дати однакові — по id)
+  const sortedByDateThenId = [...tasks].sort((a, b) => {
+    const dateDiff = new Date(b.created_at) - new Date(a.created_at);
+    if (dateDiff !== 0) return dateDiff;
+    return b.id - a.id; // Додаткове сортування, якщо дати однакові
+  });
+
+  // Сортування по id від найбільшого до найменшого:
+  // const sortedByIdDesc = [...tasks].sort((a, b) => b.id - a.id);
+
+  // Сортування по даті створення від новіших до старіших:
+  // const sortedByDateTime = [...tasks].sort(
+  //   (a, b) => new Date(b.created_at) - new Date(a.created_at)
+  // );
 
   // const onDeleteTask = (taskId) => {
   //   dispatch(apiDeleteTask(taskId))
@@ -40,10 +51,10 @@ const TasksList = ({ tasks, isLoading }) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
-        key={sortTaskDate.length} // для правильного перезавантаження анімації
+        key={sortedByDateThenId.length} // для правильного перезавантаження анімації
       >
-        {Array.isArray(sortTaskDate) &&
-          sortTaskDate.map((task) => (
+        {Array.isArray(sortedByDateThenId) &&
+          sortedByDateThenId.map((task) => (
             <Link
               state={{ from: location }}
               to={`/tasks/${task.id}`}

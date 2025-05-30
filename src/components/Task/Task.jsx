@@ -1,8 +1,7 @@
 import { useSelector } from "react-redux";
 import css from "./Task.module.css";
-import { MdDelete } from "react-icons/md";
+// import { MdDelete } from "react-icons/md";
 import { selectorUsers } from "../../redux/user/selectors";
-
 
 const Task = ({
   task: {
@@ -30,13 +29,13 @@ const Task = ({
 
   const formatDate = (dateString) => {
     if (!dateString) return "-";
-
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
-
-    return `${day}-${month}-${year}`;
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    return `${day}.${month}.${year}, ${hours}:${minutes}`;
   };
 
   return (
