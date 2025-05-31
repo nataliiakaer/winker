@@ -12,7 +12,9 @@ import { selectorAuthIsRefreshing } from "../redux/auth/selectors";
 import css from "./Loader/Loader.module.css";
 
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
-const AddTaskModalPage = lazy(() => import("../pages/AddTaskModalPage/AddTaskModalPage"));
+const AddTaskModalPage = lazy(() =>
+  import("../pages/AddTaskModalPage/AddTaskModalPage")
+);
 const MyTasksPage = lazy(() => import("../pages/MyTasksPage/MyTasksPage"));
 const AssignedToMePage = lazy(() =>
   import("../pages/AssignedToMePage/AssignedToMePage")

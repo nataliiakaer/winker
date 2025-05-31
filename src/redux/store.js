@@ -55,7 +55,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      // immutableCheck: false, // вимикає важку перевірку мутабельних даних - apiGetAllTasks
+      immutableCheck: false, // вимикає важку перевірку мутабельних даних - apiGetAllTasks
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },

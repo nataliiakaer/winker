@@ -32,6 +32,10 @@ const taskComments = createSlice({
         state.error = action.payload;
       })
 
+      .addCase(apiAddTaskComment.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
       .addCase(apiAddTaskComment.fulfilled, (state, action) => {
         state.comments.push(action.payload);
         state.success = "Коментар додано!";
@@ -40,6 +44,10 @@ const taskComments = createSlice({
         state.error = action.payload;
       })
 
+      .addCase(apiUpdateTaskComment.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
       .addCase(apiUpdateTaskComment.fulfilled, (state, action) => {
         const index = state.comments.findIndex(
           (c) => c.id === action.payload.id
@@ -53,6 +61,10 @@ const taskComments = createSlice({
         state.error = action.payload;
       })
 
+      .addCase(apiDeleteTaskComment.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
       .addCase(apiDeleteTaskComment.fulfilled, (state, action) => {
         state.comments = state.comments.filter(
           (comment) => comment.id !== action.payload.id

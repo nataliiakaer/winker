@@ -19,14 +19,61 @@
   color: rgb(30, 45, 245);
 }
 
-/* .logoutBnt {
-  margin: 0 auto;
-  min-width: 120px;
-  padding: 10px 20px;
-  font-size: 15px;
+.nameContainer {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.userName {
+  display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.userName:focus,
+.userName:hover,
+.userName.act {
+  text-decoration: underline;
+}
+
+.userName:focus .iconName,
+.userName:hover .iconName,
+.userName.act .iconName {
+  color: #f44336;
+}
+
+.userData {
+  font-size: 14px;
+  padding: 4px;
+}
+
+.popup {
+  position: absolute;
+  display: flex;
+  gap: 6px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  top: 100%; /* або bottom: 0, залежно від бажаного розміщення */
+  right: 0;
+  margin-top: 19px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  white-space: nowrap;
+  cursor: default;
+}
+
+.logoutButton {
+  width: 100%;
+  background: #f44336;
+  color: white;
   border: none;
-  border-radius: 15%;
-  background-color: rgb(177, 217, 252);
-} */
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}

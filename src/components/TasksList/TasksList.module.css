@@ -38,6 +38,10 @@
   max-width: 100%;
 }
 
-.itemGrid {
+/* .itemGrid {
   width: calc((100% - 72px) / 2);
+} */
+
+.itemGrid {
+  width: calc((100% - 117px) / 3);
 }

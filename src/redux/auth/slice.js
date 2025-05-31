@@ -4,7 +4,7 @@
 // - Екшени описують тільки те, що сталося, а не як змінюється стан програми.
 
 import { createSlice } from "@reduxjs/toolkit";
-import { apiLogin, apiRefreshUser } from "./operations";
+import { apiLogin, apiRefreshUser, logout } from "./operations";
 
 const INITIAL_STATE = {
   token: null,
@@ -12,6 +12,8 @@ const INITIAL_STATE = {
   isRefreshing: false,
   error: null,
 };
+
+// глобальна дія logout
 
 const authSlice = createSlice({
   name: "auth",
@@ -40,7 +42,9 @@ const authSlice = createSlice({
       .addCase(apiRefreshUser.rejected, (state, action) => {
         state.error = action.payload;
         state.isRefreshing = false;
-      });
+      })
+      .addCase(logout, () => INITIAL_STATE); // важливо!
+
     // .addCase(apiLogout.pending, (state) => {
     //   state.error = null;
     // })

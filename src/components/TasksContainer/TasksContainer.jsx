@@ -5,40 +5,31 @@ import { useDispatch, useSelector } from "react-redux";
 import TasksList from "../TasksList/TasksList";
 import css from "./TasksContainer.module.css";
 import {
-  selectorAddTaskModal,
   selectorTasksError,
   selectorTasksIsLoading,
 } from "../../redux/tasks/selectors";
 import Loader from "../Loader/Loader";
 import TasksFilters from "../TasksFilters/TasksFilters";
-import AddTaskModal from "../AddTaskModal/AddTaskModal";
 import { setModal } from "../../redux/tasks/slice";
 import ViewModeToggle from "../ViewModeToggle/ViewModeToggle";
+import { useNavigate } from "react-router-dom";
 
 const TasksContainer = ({ tasks }) => {
   const dispatch = useDispatch();
-
   const isLoading = useSelector(selectorTasksIsLoading);
   const error = useSelector(selectorTasksError);
-
-  const modal = useSelector(selectorAddTaskModal);
+  const navigate = useNavigate();
 
   const openModal = () => {
+    navigate("/tasks");
     dispatch(setModal(true));
-  };
-
-  const closeModal = () => {
-    dispatch(setModal(false));
   };
 
   return (
     <div className={css.pageWrapper}>
-      <div title="Modal">
-        <button className={css.btnNewTask} type="button" onClick={openModal}>
-          + Нове завдання
-        </button>
-        {modal && <AddTaskModal closeModal={closeModal} />}
-      </div>
+      <button className={css.btnNewTask} type="button" onClick={openModal}>
+        + Нове завдання
+      </button>
       <TasksFilters />
       <div className={css.contentWrapper}>
         {isLoading && <Loader />}

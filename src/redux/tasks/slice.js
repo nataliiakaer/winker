@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   apiAddTask,
-  // apiGetAllTasks,
+  apiGetAllTasks,
   // apiDeleteTask,
   apiGetMyTasks,
   apiGetTaskDetails,
@@ -9,7 +9,7 @@ import {
 } from "./operations";
 
 const INITIAL_STATE = {
-  // allTasks: [],
+  allTasks: [],
   myTasks: [],
   assignedTasks: [],
   modal: false,
@@ -29,18 +29,18 @@ const tasksSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
-      // .addCase(apiGetAllTasks.pending, (state) => {
-      //   state.isLoading = true;
-      //   state.error = null;
-      // })
-      // .addCase(apiGetAllTasks.fulfilled, (state, action) => {
-      //   state.isLoading = false;
-      //   state.allTasks = action.payload;
-      // })
-      // .addCase(apiGetAllTasks.rejected, (state, action) => {
-      //   state.isLoading = false;
-      //   state.error = action.payload;
-      // })
+      .addCase(apiGetAllTasks.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(apiGetAllTasks.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.allTasks = action.payload;
+      })
+      .addCase(apiGetAllTasks.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
 
       .addCase(apiGetMyTasks.pending, (state) => {
         state.isLoading = true;
@@ -75,7 +75,7 @@ const tasksSlice = createSlice({
       .addCase(apiAddTask.fulfilled, (state, action) => {
         state.isLoading = false;
         const newTask = action.payload;
-        // state.allTasks.push(newTask);
+        state.allTasks.push(newTask);
         // Якщо я створив задачу — додаємо в мій список
         state.myTasks.push(newTask);
         // Якщо задача призначена мені — додаємо і туди

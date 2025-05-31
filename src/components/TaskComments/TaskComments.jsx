@@ -40,39 +40,39 @@ const TaskComments = () => {
 
   const handleAddComment = () => {
     if (!newComment.trim()) return;
-  
+
     const now = new Date().toISOString();
     const formData = {
       comment: newComment.trim(),
       createdAt: now,
       updatedAt: now,
     };
-  
+
     dispatch(apiAddTaskComment({ id, formData }))
       .unwrap()
       .then(() => {
         dispatch(apiGetMyTasks());
         dispatch(apiGetTasksAssignedToMe());
-        dispatch(apiGetTaskDetails(id)); 
+        dispatch(apiGetTaskDetails(id));
       });
-  
+
     setNewComment("");
     setIsInputActive(false);
   };
-  
+
   const handleDelete = (commentId) => {
     const confirmDelete = window.confirm(
       "Ви впевнені, що хочете видалити цей коментар?"
     );
     if (!confirmDelete) return;
-  
+
     dispatch(apiDeleteTaskComment({ taskId: id, commentId }))
       .unwrap()
       .then(() => {
         toast.success("Коментар видалено");
         dispatch(apiGetMyTasks());
         dispatch(apiGetTasksAssignedToMe());
-        dispatch(apiGetTaskDetails(id)); 
+        dispatch(apiGetTaskDetails(id));
       })
       .catch(() => toast.error("Помилка при видаленні"));
   };

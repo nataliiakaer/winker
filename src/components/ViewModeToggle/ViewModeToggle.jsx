@@ -26,7 +26,7 @@ const ViewModeToggle = () => {
 
       <button
         data-tooltip-id="view-tooltip"
-        data-tooltip-content="Плитка: по два елементи в рядку"
+        data-tooltip-content="Плитка: декілька елементів в рядку"
         onClick={() => dispatch(setViewMode("grid"))}
         className={clsx(css.button, {
           [css.active]: viewMode === "grid",

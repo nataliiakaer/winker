@@ -1,0 +1,56 @@
+.group {
+  margin-bottom: 15px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.input,
+.select {
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.errorText {
+  color: red;
+  font-size: 12px;
+}
+
+.speedGroup {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.speedOption {
+  cursor: pointer;
+  border: 2px solid transparent;
+  padding: 4px;
+  border-radius: 12px;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.speedOption img {
+  width: 50px;
+  height: 50px;
+  display: block;
+}
+
+.speedOption:hover {
+  border-color: #888;
+}
+
+.selected {
+  border-color: #4caf50;
+  background-color: rgba(76, 175, 80, 0.2);
+}
+
+.hiddenRadio {
+  display: none;
+}

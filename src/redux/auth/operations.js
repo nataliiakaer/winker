@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const instance = axios.create({
@@ -50,15 +50,4 @@ export const apiRefreshUser = createAsyncThunk(
   }
 );
 
-// export const apiLogout = createAsyncThunk(
-//   "auth/logout"
-//   // async (_, thunkApi) => {
-//   //   try {
-//   //     await instance.post("api/logout");
-//   //     setAuthHeaders("");
-//   //     return;
-//   //   } catch (error) {
-//   //     return thunkApi.rejectWithValue(error.message);
-//   //   }
-//   // }
-// );
+export const logout = createAction("auth/logout");

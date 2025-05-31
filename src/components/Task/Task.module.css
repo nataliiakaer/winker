@@ -18,3 +18,20 @@
   border-radius: 15%;
   background-color: rgb(177, 217, 252);
 }
+
+.iconCommentGreen {
+  color: green;
+  background-color: rgb(172, 226, 172);
+  border-radius: 50%;
+}
+
+.iconCommentRed {
+  color: red;
+  background-color: rgb(226, 172, 172);
+  border-radius: 50%;
+}
+
+.imgSpeed {
+  width: 25px;
+  height: 25px;
+}
