@@ -75,7 +75,9 @@ const Task = ({
           <p> {title}</p>
         </li>
         <li className={css.item}>
-          <p className={css.itemTitle}>Терміновість: </p>
+          <p className={css.itemTitle} hidden>
+            Терміновість:{" "}
+          </p>
           {getUrgencyIcon(wink_type)}
         </li>
         {/* <li className={css.item}>

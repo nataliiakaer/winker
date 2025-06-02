@@ -1,24 +1,27 @@
-import { NavLink, Outlet, useParams } from "react-router-dom";
-import Task from "../../components/Task/Task";
+import { useParams } from "react-router-dom";
+// import Task from "../../components/Task/Task";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { apiGetTaskDetails } from "../../redux/tasks/operations";
 import {
+  // selectorAddTaskModal,
   selectorTaskDetails,
   selectorTasksError,
   selectorTasksIsLoading,
 } from "../../redux/tasks/selectors";
 import Loader from "../../components/Loader/Loader";
-import css from "./TasksDetailsPage.module.css";
-import clsx from "clsx";
+// import css from "./TasksDetailsPage.module.css";
+// import clsx from "clsx";
+import UpdateTaskModal from "../../components/UpdateTaskModal/UpdateTaskModal";
 
-const activeLinkClass = ({ isActive }) => {
-  return clsx(css.link, isActive && css.active);
-};
+// const activeLinkClass = ({ isActive }) => {
+//   return clsx(css.link, isActive && css.active);
+// };
 
 const TasksDetailsPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  // const modal = useSelector(selectorAddTaskModal);
 
   const taskDetails = useSelector(selectorTaskDetails);
   const isLoading = useSelector(selectorTasksIsLoading);
@@ -38,6 +41,13 @@ const TasksDetailsPage = () => {
         </p>
       ) : (
         taskDetails !== null && (
+          <div title="Modal">
+            <UpdateTaskModal />
+          </div>
+        )
+      )}
+
+      {/* taskDetails !== null && (
           <div>
             Task id {id}
             <div className={css.taskDatailContainer}>
@@ -57,8 +67,8 @@ const TasksDetailsPage = () => {
             </ul>
             <Outlet />
           </div>
-        )
-      )}
+        ) */}
+      {/* )} */}
 
       {/* <div className={css.backdrop}>
             <div className={css.modal}>

@@ -69,7 +69,6 @@ const taskComments = createSlice({
         state.comments = state.comments.filter(
           (comment) => comment.id !== action.payload.id
         );
-        state.success = "Коментар видалено!";
       })
       .addCase(apiDeleteTaskComment.rejected, (state, action) => {
         state.error = action.payload;
