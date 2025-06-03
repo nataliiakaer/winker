@@ -16,7 +16,8 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import storage from "redux-persist/lib/storage"; // використовує localStorage
+import storageSession from "redux-persist/lib/storage/session"; // використовує sessionStorage
 import { tasksListsReducer } from "./tasks/slice";
 import { filtersReducer } from "./filters/slice";
 import { usersReducer } from "./user/slice";
@@ -36,11 +37,11 @@ const tasksPersistConfig = {
 
 const filtersPersistConfig = {
   key: "filters",
-  storage,
+  storage: storageSession,
 };
 
 const listViewModeConfig = {
-  key: 'viewMode',
+  key: "viewMode",
   storage,
 };
 

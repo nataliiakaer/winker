@@ -1,3 +1,5 @@
+// Компонент з кнопкою «прокрутити до початку», яка стає видимою, коли користувач починає прокручувати сторінку вниз.
+
 import { useSelector } from "react-redux";
 import css from "./Task.module.css";
 // import { MdDelete } from "react-icons/md";

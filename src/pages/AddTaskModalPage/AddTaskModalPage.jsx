@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "../../redux/tasks/slice";
 import { selectorAddTaskModal } from "../../redux/tasks/selectors";
-import AddTaskModal from "../../components/AddTaskModal/AddTaskModal";
+import AddTaskForm from "../../components/AddTaskForm/AddTaskForm";
 import { useNavigate } from "react-router-dom";
 
 const AddTaskModalPage = () => {
@@ -15,7 +15,7 @@ const AddTaskModalPage = () => {
   };
 
   return (
-    <div title="Modal">{modal && <AddTaskModal closeModal={closeModal} />}</div>
+    <div title="Modal">{modal && <AddTaskForm closeModal={closeModal} />}</div>
   );
 };
 

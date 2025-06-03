@@ -6,7 +6,6 @@ export const apiGetTasksAssignedToMe = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const { data } = await instance.get("api/tasks/assigned-to-me");
-      console.log(data);
       return data; // те, що повертається з санки потрапляє в action.payload в статусі fullfilled
     } catch (error) {
       return thunkApi.rejectWithValue(error.message); // те, що повертається з санки потрапляє в action.payload в статусі rejected
@@ -19,7 +18,7 @@ export const apiGetMyTasks = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const { data } = await instance.get("api/tasks/my-tasks");
-      console.log(data);
+
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -61,12 +60,23 @@ export const apiAddTask = createAsyncThunk(
   }
 );
 
+export const apiUpdateTaskDetails = createAsyncThunk(
+  "tasks/updateTaskDetails",
+  async ({ taskId, formData }, thunkApi) => {
+    try {
+      const { data } = await instance.patch(`/api/tasks/${taskId}`, formData);
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
 export const apiGetTaskDetails = createAsyncThunk(
   "tasks/getTaskDetails",
   async (id, thunkApi) => {
     try {
       const { data } = await instance.get(`/api/tasks/${id}`);
-      console.log(data);
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);

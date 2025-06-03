@@ -6,6 +6,7 @@ import {
   apiGetMyTasks,
   apiGetTaskDetails,
   apiGetTasksAssignedToMe,
+  apiUpdateTaskDetails,
 } from "./operations";
 
 const INITIAL_STATE = {
@@ -25,6 +26,7 @@ const tasksSlice = createSlice({
     setModal: (state, action) => {
       state.modal = action.payload;
     },
+  
   },
   extraReducers: (builder) => {
     builder
@@ -75,17 +77,19 @@ const tasksSlice = createSlice({
       .addCase(apiAddTask.fulfilled, (state, action) => {
         state.isLoading = false;
         const newTask = action.payload;
-        state.allTasks.push(newTask);
-        // Якщо я створив задачу — додаємо в мій список
         state.myTasks.push(newTask);
-        // Якщо задача призначена мені — додаємо і туди
-        if (newTask.assignee === state.users.currentUser) {
-          state.assignedTasks.push(newTask);
-        }
         state.modal = false;
       })
       .addCase(apiAddTask.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      .addCase(apiUpdateTaskDetails.fulfilled, (state, action) => {
+        state.taskDetails = action.payload;
+        state.success = "Завдання оновлено!";
+      })
+      .addCase(apiUpdateTaskDetails.rejected, (state, action) => {
         state.error = action.payload;
       })
 

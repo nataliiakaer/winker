@@ -10,6 +10,7 @@ import RestrictedRoute from "./RestrictedRoute";
 import PrivateRoute from "./PrivateRoute";
 import { selectorAuthIsRefreshing } from "../redux/auth/selectors";
 import css from "./Loader/Loader.module.css";
+import { Toaster } from "react-hot-toast";
 
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 const AddTaskModalPage = lazy(() =>
@@ -47,6 +48,8 @@ function App() {
 
   return (
     <Layout>
+      {/* Toast сповіщення */}
+      <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route

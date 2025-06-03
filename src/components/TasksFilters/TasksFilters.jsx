@@ -34,6 +34,10 @@ const TasksFilters = () => {
   const users = useSelector(selectorUsers);
   const location = useLocation();
 
+  useEffect(() => {
+    dispatch(apiGetUsers());
+  }, [dispatch]);
+
   // Автоматично визначаємо правильні фільтри для поточної вкладки
   const filters = useSelector((state) => {
     if (location.pathname === "/tasks") return state.filters.tasksFilters;
@@ -52,10 +56,6 @@ const TasksFilters = () => {
       return actionAssignedTasks;
     return actionTasks;
   };
-
-  useEffect(() => {
-    dispatch(apiGetUsers());
-  }, [dispatch]);
 
   const handleStatusChange = (e) => {
     const { value, checked } = e.target;
@@ -215,7 +215,13 @@ const TasksFilters = () => {
           />
           Постановник
         </label>
-        <select value={filters.userId || ""} onChange={handleUserChange}>
+        <select
+          value={filters.userId || ""}
+          onChange={handleUserChange}
+          disabled={
+            filters.userRole !== "responsible" && filters.userRole !== "creator"
+          }
+        >
           <option value="">Користувач:</option>
           {users.map((user) => (
             <option key={user.id} value={user.id}>
@@ -254,27 +260,38 @@ const TasksFilters = () => {
             name="currentDay"
             checked={filters.dateFilter.currentDay}
             onChange={handleDateFilterChange}
+            disabled={
+              filters.dateType !== "creation" && filters.dateType !== "deadline"
+            }
           />
           Поточний день
         </label>
         {!filters.dateFilter.currentDay && (
           <div className={css.dateRangeInputs}>
             <label>
-              Від:
+              <span className={css.textRange}>Від:</span>
               <input
                 type="date"
                 name="from"
                 value={filters.dateFilter.from || ""}
                 onChange={handleDateFilterChange}
+                disabled={
+                  filters.dateType !== "creation" &&
+                  filters.dateType !== "deadline"
+                }
               />
             </label>
             <label>
-              До:
+              <span className={css.textRange}>До:</span>
               <input
                 type="date"
                 name="to"
                 value={filters.dateFilter.to || ""}
                 onChange={handleDateFilterChange}
+                disabled={
+                  filters.dateType !== "creation" &&
+                  filters.dateType !== "deadline"
+                }
               />
             </label>
           </div>

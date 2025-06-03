@@ -5,7 +5,6 @@
 Тобто, щоб змінити стан при взаємодії з інтерфейсом, потрібно використовувати хук useDispatch() */
 
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React from "react";
 import * as Yup from "yup";
 import css from "./LoginForm.module.css";
 import { useDispatch, useSelector } from "react-redux";

@@ -1,3 +1,5 @@
+// Компонент з блоком, який відображається на екрані під час завантаження даних
+
 import { ClipLoader } from "react-spinners";
 import css from "./Loader.module.css";
 

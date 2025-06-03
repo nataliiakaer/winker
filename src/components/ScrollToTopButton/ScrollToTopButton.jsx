@@ -1,3 +1,5 @@
+// Компонент з кнопкою «прокрутити до початку», яка стає видимою, коли користувач починає прокручувати сторінку вниз.
+
 import { useEffect, useState } from "react";
 import css from "./ScrollToTopButton.module.css";
 
