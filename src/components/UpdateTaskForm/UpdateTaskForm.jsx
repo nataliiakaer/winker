@@ -1,7 +1,6 @@
 import css from "./UpdateTaskForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { setModal } from "../../redux/tasks/slice";
 import { IoClose } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import { selectorTaskDetails } from "../../redux/tasks/selectors";
@@ -19,7 +18,7 @@ import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import toast from "react-hot-toast";
 
-const UpdateTaskForm = () => {
+const UpdateTaskForm = ({ taskId }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,10 +42,14 @@ const UpdateTaskForm = () => {
     navigate(-1);
   };
 
+  if (!taskDetails || taskDetails.id !== taskId) {
+    return null; // або <Loader /> — якщо хочеш показати завантаження
+  }
+
   const validationSchema = Yup.object({
     title: Yup.string().required("Заголовок обов'язковий"),
     description: Yup.string(),
-    finishedDate: Yup.string(),
+    dateFinished: Yup.string(),
     performerId: Yup.number().required("Оберіть користувача"),
     winkType: Yup.string().oneOf(["0", "1", "2"]),
     isList: Yup.boolean(),
@@ -58,38 +61,49 @@ const UpdateTaskForm = () => {
     description: taskDetails.description || "",
     dateFinished: taskDetails.finished_date
       ? taskDetails.finished_date.slice(0, 10)
-      : "", // "" замість null
+      : "",
     performerId: taskDetails.performer_id || "",
     winkType: String(taskDetails.wink_type ?? 0),
     isList: taskDetails.list_enable ?? false,
     status: taskDetails.status === 2,
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values, actions) => {
     const formattedData = {
       title: values.title,
       description: values.description,
       taskType: 0,
-      finishedDate: values.finishedDate,
+      dateFinished: values.dateFinished,
       winkType: Number(values.winkType),
       status: values.status ? 2 : 0,
       performerId: Number(values.performerId),
-      parent: 0,
       listEnable: values.isList,
     };
 
-    dispatch(apiUpdateTaskDetails({ taskId: id, formData: formattedData }))
-      .unwrap()
-      .then(() => {
-        toast.success("Завдання успішно оновлено");
-        dispatch(apiGetAllTasks());
-        dispatch(apiGetMyTasks());
-        dispatch(apiGetTasksAssignedToMe());
-        dispatch(setModal(false));
-      })
-      .catch(() => {
-        toast.error("Не вдалося оновити завдання");
-      });
+    try {
+      await toast.promise(
+        dispatch(
+          apiUpdateTaskDetails({ taskId: id, formData: formattedData })
+        ).unwrap(),
+        {
+          loading: "Оновлюємо завдання...",
+          success: "Завдання успішно оновлено",
+          error: "Помилка при оновленні",
+        }
+      );
+
+      await Promise.all([
+        dispatch(apiGetAllTasks()),
+        dispatch(apiGetMyTasks()),
+        dispatch(apiGetTasksAssignedToMe()),
+        dispatch(apiGetTaskDetails(id)),
+      ]);
+
+      actions.resetForm();
+      closeModal();
+    } catch (error) {
+      console.error("Помилка при оновленні завдання:", error);
+    }
   };
 
   return (
@@ -195,13 +209,21 @@ const UpdateTaskForm = () => {
                     />
                   </label>
                   <p>
-                    Постановник: {currentUser.firstName} {currentUser.lastName}
+                    Постановник:{" "}
+                    {(() => {
+                      const user = users.find(
+                        (user) => user.id === taskDetails.user_id
+                      );
+                      return user
+                        ? `${user.firstName} ${user.lastName}`
+                        : "Невідомий користувач";
+                    })()}
                   </p>
                 </div>
 
-                <div className={css.speedGroup}>
+                <div className={css.winkTypeGroup}>
                   <label
-                    className={`${css.speedOption} ${
+                    className={`${css.winkTypeOption} ${
                       values.winkType === "0" ? css.selected : ""
                     }`}
                   >
@@ -218,7 +240,7 @@ const UpdateTaskForm = () => {
                     />
                   </label>
                   <label
-                    className={`${css.speedOption} ${
+                    className={`${css.winkTypeOption} ${
                       values.winkType === "1" ? css.selected : ""
                     }`}
                   >
@@ -235,7 +257,7 @@ const UpdateTaskForm = () => {
                     />
                   </label>
                   <label
-                    className={`${css.speedOption} ${
+                    className={`${css.winkTypeOption} ${
                       values.winkType === "2" ? css.selected : ""
                     }`}
                   >

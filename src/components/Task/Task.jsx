@@ -9,6 +9,7 @@ import { GoCheck } from "react-icons/go";
 
 const Task = ({
   task: {
+    id,
     title,
     // description,
     wink_type,
@@ -40,7 +41,7 @@ const Task = ({
   };
 
   const getUrgencyIcon = (type) => {
-    switch (type) {
+    switch (Number(type)) {
       case 0:
         return (
           <img
@@ -72,6 +73,7 @@ const Task = ({
 
   return (
     <>
+      <p>id: {id}</p>
       <ul className={css.list}>
         <li className={css.item}>
           <p> {title}</p>

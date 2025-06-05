@@ -35,7 +35,7 @@ const AddTaskForm = ({ closeModal }) => {
     isList: false,
     dateFinished: "",
     performerId: "",
-    speed: "0",
+    winkType: "0",
   };
 
   const validationSchema = Yup.object({
@@ -44,7 +44,7 @@ const AddTaskForm = ({ closeModal }) => {
   });
 
   const handleSubmit = async (values, actions) => {
-    const { title, description, isList, dateFinished, performerId, speed } =
+    const { title, description, isList, dateFinished, performerId, winkType } =
       values;
 
     const newTask = {
@@ -53,7 +53,7 @@ const AddTaskForm = ({ closeModal }) => {
       created_at: new Date().toISOString(),
       task_type: 0,
       finished_date: dateFinished ? new Date(dateFinished).toISOString() : null,
-      wink_type: parseInt(speed),
+      wink_type: parseInt(winkType),
       status: 0,
       user_id: currentUser.id,
       performer_id: parseInt(performerId),
@@ -177,15 +177,15 @@ const AddTaskForm = ({ closeModal }) => {
                 </p>
               </div>
 
-              <div className={css.speedGroup}>
+              <div className={css.winkTypeGroup}>
                 <label
-                  className={`${css.speedOption} ${
-                    values.speed === "0" ? css.selected : ""
+                  className={`${css.winkTypeOption} ${
+                    values.winkType === "0" ? css.selected : ""
                   }`}
                 >
                   <Field
                     type="radio"
-                    name="speed"
+                    name="winkType"
                     value="0"
                     className={css.hiddenRadio}
                   />
@@ -196,13 +196,13 @@ const AddTaskForm = ({ closeModal }) => {
                   />
                 </label>
                 <label
-                  className={`${css.speedOption} ${
-                    values.speed === "1" ? css.selected : ""
+                  className={`${css.winkTypeOption} ${
+                    values.winkType === "1" ? css.selected : ""
                   }`}
                 >
                   <Field
                     type="radio"
-                    name="speed"
+                    name="winkType"
                     value="1"
                     className={css.hiddenRadio}
                   />
@@ -213,13 +213,13 @@ const AddTaskForm = ({ closeModal }) => {
                   />
                 </label>
                 <label
-                  className={`${css.speedOption} ${
-                    values.speed === "2" ? css.selected : ""
+                  className={`${css.winkTypeOption} ${
+                    values.winkType === "2" ? css.selected : ""
                   }`}
                 >
                   <Field
                     type="radio"
-                    name="speed"
+                    name="winkType"
                     value="2"
                     className={css.hiddenRadio}
                   />

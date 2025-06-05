@@ -11,8 +11,6 @@ import clsx from "clsx";
 import Loader from "../../components/Loader/Loader";
 import UpdateTaskForm from "../../components/UpdateTaskForm/UpdateTaskForm";
 import css from "./TasksDetailsPage.module.css";
-// import { IoIosArrowDown } from "react-icons/io";
-// import { IoIosArrowUp } from "react-icons/io";
 
 const activeLinkClass = ({ isActive }) => {
   return clsx(css.link, isActive && css.active);
@@ -25,8 +23,6 @@ const TasksDetailsPage = () => {
   const taskDetails = useSelector(selectorTaskDetails);
   const isLoading = useSelector(selectorTasksIsLoading);
   const error = useSelector(selectorTasksError);
-
-  // const [showBlock, setShowSlock] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -45,7 +41,7 @@ const TasksDetailsPage = () => {
           <div title="Modal">
             <div className={css.backdrop}>
               <div className={css.modal}>
-                <UpdateTaskForm />
+                <UpdateTaskForm taskId={id} />
                 <ul className={css.list}>
                   <li>
                     <NavLink className={activeLinkClass} to="comments">
@@ -59,14 +55,6 @@ const TasksDetailsPage = () => {
                   </li>
                 </ul>
                 <Outlet />
-                {/* <div className={css.block}>
-                  <div
-                    className={`${css.link} ${showBlock ? css.active : ""}`}
-                    onClick={() => setShowSlock((prev) => !prev)}
-                  ></div>
-
-                  {showBlock && <div className={css.popup}></div>}
-                </div> */}
               </div>
             </div>
           </div>

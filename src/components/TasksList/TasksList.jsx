@@ -58,7 +58,6 @@ const TasksList = ({ tasks, isLoading }) => {
             <Link
               state={{ from: location }}
               to={`/tasks/${task.id}`}
-              key={task.id}
               className={clsx(
                 css.item,
                 viewMode === "grid" ? css.itemGrid : css.itemList
