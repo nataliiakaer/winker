@@ -11,7 +11,6 @@ import clsx from "clsx";
 
 const TasksList = ({ tasks, isLoading }) => {
   const location = useLocation();
-  // const dispatch = useDispatch();
   const MotionUl = motion.ul;
   const MotionLi = motion.li;
   const viewMode = useSelector(selectorListViewMode);
@@ -56,6 +55,7 @@ const TasksList = ({ tasks, isLoading }) => {
         {Array.isArray(sortedByDateThenId) &&
           sortedByDateThenId.map((task) => (
             <Link
+              key={task.id}
               state={{ from: location }}
               to={`/tasks/${task.id}`}
               className={clsx(

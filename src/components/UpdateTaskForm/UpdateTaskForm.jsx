@@ -18,7 +18,7 @@ import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import toast from "react-hot-toast";
 
-const UpdateTaskForm = ({ taskId }) => {
+const UpdateTaskForm = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,51 +33,41 @@ const UpdateTaskForm = ({ taskId }) => {
     }
   }, [dispatch, isLoggedIn, currentUser]);
 
-  useEffect(() => {
-    if (!id) return;
-    dispatch(apiGetTaskDetails(id));
-  }, [id, dispatch]);
-
   const closeModal = () => {
     navigate(-1);
   };
 
-  if (!taskDetails || taskDetails.id !== taskId) {
-    return null; // або <Loader /> — якщо хочеш показати завантаження
-  }
-
   const validationSchema = Yup.object({
     title: Yup.string().required("Заголовок обов'язковий"),
+    isList: Yup.boolean(),
     description: Yup.string(),
     dateFinished: Yup.string(),
     performerId: Yup.number().required("Оберіть користувача"),
     winkType: Yup.string().oneOf(["0", "1", "2"]),
-    isList: Yup.boolean(),
     status: Yup.boolean(),
   });
 
   const initialValues = {
     title: taskDetails.title || "",
+    isList: taskDetails.list_enable ?? false,
     description: taskDetails.description || "",
     dateFinished: taskDetails.finished_date
       ? taskDetails.finished_date.slice(0, 10)
       : "",
     performerId: taskDetails.performer_id || "",
     winkType: String(taskDetails.wink_type ?? 0),
-    isList: taskDetails.list_enable ?? false,
     status: taskDetails.status === 2,
   };
 
   const handleSubmit = async (values, actions) => {
     const formattedData = {
       title: values.title,
+      list_enable: values.isList,
       description: values.description,
-      taskType: 0,
-      dateFinished: values.dateFinished,
-      winkType: Number(values.winkType),
-      status: values.status ? 2 : 0,
+      finished_date: values.dateFinished,
       performerId: Number(values.performerId),
-      listEnable: values.isList,
+      wink_type: Number(values.winkType),
+      status: values.status ? 2 : 0,
     };
 
     try {
@@ -91,6 +81,8 @@ const UpdateTaskForm = ({ taskId }) => {
           error: "Помилка при оновленні",
         }
       );
+
+      console.log(formattedData);
 
       await Promise.all([
         dispatch(apiGetAllTasks()),
@@ -252,7 +244,7 @@ const UpdateTaskForm = ({ taskId }) => {
                     />
                     <img
                       className={css.imgSpeed}
-                      src="/src/images/assets/rabbit32.png"
+                      src="/src/images/assets/rabbit64.png"
                       alt="Терміновий"
                     />
                   </label>
@@ -284,14 +276,15 @@ const UpdateTaskForm = ({ taskId }) => {
                     Завершити завдання
                   </label>
                 </div>
+                <button className={css.submitBtn} type="submit">
+                  Зберегти
+                </button>
+                {/* Кнопка показується тільки після початку редагування форми: */}
                 {/* {dirty && (
                     <button className={css.submitBtn} type="submit">
                       Зберегти
                     </button>
                   )} */}
-                <button className={css.submitBtn} type="submit">
-                  Зберегти
-                </button>
               </Form>
             )}
           </Formik>

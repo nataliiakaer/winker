@@ -29,36 +29,39 @@ const TasksDetailsPage = () => {
     dispatch(apiGetTaskDetails(id));
   }, [id, dispatch]);
 
+  console.log(id);
+
+  if (isLoading || !taskDetails || taskDetails.id !== Number(id)) {
+    return <Loader />;
+  }
+
   return (
     <>
-      {isLoading && <Loader />}
       {error ? (
         <p style={{ color: "red" }}>
           {error}. Будь ласка, спробуйте перезавантажити сторінку!
         </p>
       ) : (
-        taskDetails !== null && (
-          <div title="Modal">
-            <div className={css.backdrop}>
-              <div className={css.modal}>
-                <UpdateTaskForm taskId={id} />
-                <ul className={css.list}>
-                  <li>
-                    <NavLink className={activeLinkClass} to="comments">
-                      Коментарі
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className={activeLinkClass} to="files">
-                      Файли
-                    </NavLink>
-                  </li>
-                </ul>
-                <Outlet />
-              </div>
+        <div title="Modal">
+          <div className={css.backdrop}>
+            <div className={css.modal}>
+              <UpdateTaskForm />
+              <ul className={css.list}>
+                <li>
+                  <NavLink className={activeLinkClass} to="comments">
+                    Показати коментарі
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink className={activeLinkClass} to="files">
+                    Показати файли
+                  </NavLink>
+                </li>
+              </ul>
+              <Outlet />
             </div>
           </div>
-        )
+        </div>
       )}
     </>
   );

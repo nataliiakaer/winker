@@ -9,7 +9,6 @@ import { GoCheck } from "react-icons/go";
 
 const Task = ({
   task: {
-    id,
     title,
     // description,
     wink_type,
@@ -73,7 +72,6 @@ const Task = ({
 
   return (
     <>
-      <p>id: {id}</p>
       <ul className={css.list}>
         <li className={css.item}>
           <p> {title}</p>

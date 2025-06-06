@@ -208,7 +208,7 @@ const AddTaskForm = ({ closeModal }) => {
                   />
                   <img
                     className={css.imgSpeed}
-                    src="/src/images/assets/rabbit32.png"
+                    src="/src/images/assets/rabbit64.png"
                     alt="Терміновий"
                   />
                 </label>
