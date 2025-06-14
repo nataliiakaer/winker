@@ -1,6 +1,6 @@
 // Компонент завантажує завдання, призначені для мене
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectorTasksAssidnedToMe } from "../../redux/tasks/selectors";
 import { selectFilteredAssignedTasks } from "../../redux/filters/selectors";

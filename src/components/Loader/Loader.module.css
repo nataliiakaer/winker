@@ -1,29 +1,33 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.8); /* напівпрозорий фон */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Центрована картка */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
   padding: 32px;
-  width: 100px;
   background-color: aliceblue;
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-  /* Центрування по вертикалі та горизонталі */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 100px;
 
   @media screen and (min-width: 768px) {
     width: 200px;
-    top: 50%;
-    left: 75%;
   }
 
   @media screen and (min-width: 1200px) {
     width: 300px;
-    top: 50%;
-    left: 50%;
   }
 }

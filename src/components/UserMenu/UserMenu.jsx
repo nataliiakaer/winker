@@ -33,7 +33,7 @@ const UserMenu = () => {
   const handleLogout = () => {
     dispatch(logout()); // Диспатчимо дію logout, яка має повернути всі частини state до initialState
     persistor.purge(); // Очищає збережені дані persist (наприклад, токени, дані tasks тощо)
-    window.location.reload(); // ✅ присусове перезавантаження сторінки, щоб бути впевненим, що всі дані скинулись
+    window.location.reload(); // ✅ примусове перезавантаження сторінки, щоб бути впевненим, що всі дані скинулись
   };
 
   useEffect(() => {

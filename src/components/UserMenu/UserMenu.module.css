@@ -7,7 +7,7 @@
 
 .navContainer {
   display: flex;
-  gap: 20px;
+  gap: 30px;
 }
 
 .link {
@@ -37,11 +37,11 @@
   text-decoration: underline;
 }
 
-.userName:focus .iconName,
+/* .userName:focus .iconName,
 .userName:hover .iconName,
 .userName.act .iconName {
   color: #f44336;
-}
+} */
 
 .userData {
   font-size: 14px;

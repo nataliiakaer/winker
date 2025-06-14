@@ -1,13 +1,15 @@
-// import { useDispatch } from "react-redux";
 import css from "./TasksList.module.css";
 import Task from "../Task/Task";
-// import { apiDeleteTask } from "../../redux/tasks/operations";
-// import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectorListViewMode } from "../../redux/listViewMode/selector";
 import clsx from "clsx";
+import { RiLock2Fill } from "react-icons/ri";
+
+// import { useDispatch } from "react-redux";
+// import { apiDeleteTask } from "../../redux/tasks/operations";
+// import toast from "react-hot-toast";
 
 const TasksList = ({ tasks, isLoading }) => {
   const location = useLocation();
@@ -71,6 +73,7 @@ const TasksList = ({ tasks, isLoading }) => {
                 transition={{ duration: 0.3 }}
               >
                 <Task task={task} /*onDeleteTask={onDeleteTask}*/ />
+                {task.status === 2 && <RiLock2Fill className={css.isDone} />}
               </MotionLi>
             </Link>
           ))}

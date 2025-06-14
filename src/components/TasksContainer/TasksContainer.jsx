@@ -13,6 +13,7 @@ import TasksFilters from "../TasksFilters/TasksFilters";
 import { setModal } from "../../redux/tasks/slice";
 import ViewModeToggle from "../ViewModeToggle/ViewModeToggle";
 import { useNavigate } from "react-router-dom";
+import ButtonUpdateLists from "../ButtonUpdateLists/ButtonUpdateLists";
 
 const TasksContainer = ({ tasks }) => {
   const dispatch = useDispatch();
@@ -27,9 +28,13 @@ const TasksContainer = ({ tasks }) => {
 
   return (
     <div className={css.pageWrapper}>
-      <button className={css.btnNewTask} type="button" onClick={openModal}>
-        + Нове завдання
-      </button>
+      <section className={css.btns}>
+        <button className={css.btnNewTask} type="button" onClick={openModal}>
+          + Нове завдання
+        </button>
+        <ButtonUpdateLists />
+      </section>
+
       <TasksFilters />
       <div className={css.contentWrapper}>
         {isLoading && <Loader />}
@@ -38,6 +43,7 @@ const TasksContainer = ({ tasks }) => {
             {error}. Будь ласка, спробуйте перезавантажити сторінку!
           </p>
         )}
+
         <ViewModeToggle />
         <TasksList tasks={tasks} isLoading={isLoading} />
       </div>

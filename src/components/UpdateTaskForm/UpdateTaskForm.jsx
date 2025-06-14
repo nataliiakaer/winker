@@ -2,7 +2,7 @@ import css from "./UpdateTaskForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { IoClose } from "react-icons/io5";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { selectorTaskDetails } from "../../redux/tasks/selectors";
 import {
   apiGetAllTasks,
@@ -18,10 +18,9 @@ import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import toast from "react-hot-toast";
 
-const UpdateTaskForm = () => {
+const UpdateTaskForm = ({ closeModal }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const taskDetails = useSelector(selectorTaskDetails);
   const isLoggedIn = useSelector(selectorAuthIsLoggedIn);
   const users = useSelector(selectorUsers);
@@ -32,10 +31,6 @@ const UpdateTaskForm = () => {
       dispatch(apiCurrentUser());
     }
   }, [dispatch, isLoggedIn, currentUser]);
-
-  const closeModal = () => {
-    navigate(-1);
-  };
 
   const validationSchema = Yup.object({
     title: Yup.string().required("Заголовок обов'язковий"),

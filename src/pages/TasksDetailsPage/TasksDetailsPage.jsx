@@ -1,6 +1,8 @@
 import { NavLink, Outlet, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useRef } from "react";
 import { apiGetTaskDetails } from "../../redux/tasks/operations";
 import {
   selectorTaskDetails,
@@ -19,6 +21,10 @@ const activeLinkClass = ({ isActive }) => {
 const TasksDetailsPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const backLocationRef = useRef(location.state?.from ?? "/");
 
   const taskDetails = useSelector(selectorTaskDetails);
   const isLoading = useSelector(selectorTasksIsLoading);
@@ -29,7 +35,9 @@ const TasksDetailsPage = () => {
     dispatch(apiGetTaskDetails(id));
   }, [id, dispatch]);
 
-  console.log(id);
+  const closeModal = () => {
+    navigate(backLocationRef.current);
+  };
 
   if (isLoading || !taskDetails || taskDetails.id !== Number(id)) {
     return <Loader />;
@@ -45,7 +53,7 @@ const TasksDetailsPage = () => {
         <div title="Modal">
           <div className={css.backdrop}>
             <div className={css.modal}>
-              <UpdateTaskForm />
+              <UpdateTaskForm closeModal={closeModal} />
               <ul className={css.list}>
                 <li>
                   <NavLink className={activeLinkClass} to="comments">
