@@ -10,6 +10,7 @@ import RestrictedRoute from "./RestrictedRoute";
 import PrivateRoute from "./PrivateRoute";
 import { selectorAuthIsRefreshing } from "../redux/auth/selectors";
 import css from "./Loader/Loader.module.css";
+import { ClipLoader } from "react-spinners";
 import { Toaster } from "react-hot-toast";
 
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
@@ -41,9 +42,12 @@ function App() {
 
   if (isRefreshing)
     return (
-      <p className={css.container}>
-        Дані користувача оновлюються, будь ласка, зачекайте.
-      </p>
+      <div className={css.backdrop}>
+        <div className={css.container}>
+          <p>Дані користувача оновлюються, будь ласка, зачекайте.</p>
+          <ClipLoader color="#1bab31" size={60} />
+        </div>
+      </div>
     );
 
   return (

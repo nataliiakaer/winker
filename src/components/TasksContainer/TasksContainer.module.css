@@ -12,14 +12,30 @@
   }
 }
 
-.btnNewTask {
-  height: 50px;
-  width: 160px;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
+.btns {
+  position: fixed;
+  top: 87px;
+  width: 182px;
+
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   @media screen and (min-width: 768px) {
+    width: 282px;
+  }
+}
+
+.btnNewTask {
+  height: 50px;
+  width: 155px;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
     width: 222px;
   }
 }
@@ -27,15 +43,4 @@
 .btnNewTask:hover,
 .btnNewTask:focus {
   background-color: rgb(177, 217, 252);
-}
-
-.btns {
-  position: fixed;
-  top: 87px;
-  width: 282px;
-
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }

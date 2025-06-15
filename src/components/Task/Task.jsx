@@ -2,7 +2,6 @@
 
 import { useSelector } from "react-redux";
 import css from "./Task.module.css";
-// import { MdDelete } from "react-icons/md";
 import { selectorUsers } from "../../redux/user/selectors";
 import { GoX } from "react-icons/go";
 import { GoCheck } from "react-icons/go";
@@ -10,15 +9,14 @@ import { GoCheck } from "react-icons/go";
 const Task = ({
   task: {
     title,
-    // description,
     wink_type,
     performer_id,
     user_id,
     created_at,
     finished_date,
     taskHasComments,
+    list_enable,
   },
-  // onDeleteTask,
 }) => {
   const users = useSelector(selectorUsers);
 
@@ -74,18 +72,19 @@ const Task = ({
     <>
       <ul className={css.list}>
         <li className={css.item}>
-          <p> {title}</p>
+          <p className={css.title}> {title}</p>
         </li>
         <li className={css.item}>
-          <p className={css.itemTitle} hidden>
+          <p className={css.itemUrgency} hidden>
             Терміновість:{" "}
           </p>
           {getUrgencyIcon(wink_type)}
         </li>
-        {/* <li className={css.item}>
-          <p className={css.itemTitle}>Опис: </p>
-          {description}
-        </li> */}
+        <li className={css.item}>
+          {list_enable === true && (
+            <p className={css.itemTitle}>Опис списком </p>
+          )}
+        </li>
         <li className={css.item}>
           <p className={css.itemTitle}>Відповідальний: </p>
           {userName(performer_id)}
@@ -111,14 +110,6 @@ const Task = ({
           )}
         </li>
       </ul>
-
-      {/* <button
-        className={css.deletetBnt}
-        type="button"
-        onClick={() => onDeleteTask(id)}
-      >
-        <MdDelete />
-      </button> */}
     </>
   );
 };

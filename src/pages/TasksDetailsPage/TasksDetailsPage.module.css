@@ -32,7 +32,8 @@
   /* border-top: 1px solid black;
   border-bottom: 1px dashed black; */
   margin-bottom: 20px;
-  background-color: rgb(248, 241, 233);
+  /* background-color: rgb(248, 241, 233); */
+  background-color: aliceblue;
 }
 
 .link {

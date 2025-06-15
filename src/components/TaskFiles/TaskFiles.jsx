@@ -1,7 +1,9 @@
-// import css from './TaskFiles.module.css'
+// Компонент з файлами, їх додаванням/редагуванням/видаленням
+
+import css from "./TaskFiles.module.css";
 
 const TaskFiles = () => {
-  return <div></div>;
+  return <p className={css.text}>В планах</p>;
 };
 
 export default TaskFiles;

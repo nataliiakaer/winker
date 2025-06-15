@@ -1,8 +1,7 @@
-
 .closeModalBtn {
   position: absolute;
-  right: 15px;
   top: 15px;
+  right: 10px;
   border: none;
   font-size: 20px;
   border-radius: 4px;
@@ -23,13 +22,90 @@
 
 .submitBtn {
   position: absolute;
-  top: 15px;
-  left: 15px;
+  top: 10px;
+  right: 55px;
   padding: 10px;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 4px;
+}
+
+.deleteTaskBnt {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  border: none;
+  padding: 5px;
+  height: 35px;
+  width: 35px;
+  font-size: 16px;
+  border-radius: 4px;
+  border-color: red;
+  color: red;
+}
+
+.listCheckbox {
+  display: flex;
+  align-items: center;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  margin-left: 30px;
+  margin-right: 30px;
+  padding: 4px 8px;
+  background-color: #f0f0f0;
+  border-radius: 6px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconDot {
+  margin-right: 5px;
+}
+
+.newListItem {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-left: 25px;
+}
+
+.addListItemBtn {
+  height: 33px;
+  width: 33px;
+  padding: 6px 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.addListItemBtn:hover,
+.addListItemBtn:focus {
+  background-color: #43a047;
+}
+
+.deleteItemBtn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.deleteItemBtn:hover,
+.deleteItemBtn:focus {
+  color: red;
 }
 
 .group {
@@ -46,6 +122,7 @@
 .select {
   padding: 8px;
   margin-top: 5px;
+  margin-left: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }

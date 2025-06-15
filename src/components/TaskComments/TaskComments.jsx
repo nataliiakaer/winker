@@ -1,4 +1,4 @@
-// Компонент з коментарями, їх додаванням/регаванням/видаленням
+// Компонент з коментарями, їх додаванням/редагуванням/видаленням
 
 import { useParams } from "react-router-dom";
 import css from "./TaskComments.module.css";

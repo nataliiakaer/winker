@@ -1,4 +1,5 @@
 // Якщо користувач зайшов за неіснуючим маршрутом
+
 import { NavLink } from "react-router-dom";
 import css from "./NotFoundPage.module.css";
 

@@ -1,3 +1,5 @@
+// Сторінка з відображення форми конкретного завдання, його коментарів та файлів
+
 import { NavLink, Outlet, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";

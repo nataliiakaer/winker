@@ -1,3 +1,5 @@
+// Компонент з встановленням фільтрів до кожної сторінки завдань
+
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {

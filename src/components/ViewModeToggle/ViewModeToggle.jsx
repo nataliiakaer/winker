@@ -1,3 +1,5 @@
+// Компонент з двома кнопками. Одна кнопка відображає одне завдання на рядок. Інша кнопка розподіляє декілька завдань в один рядок
+
 import { useDispatch, useSelector } from "react-redux";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";

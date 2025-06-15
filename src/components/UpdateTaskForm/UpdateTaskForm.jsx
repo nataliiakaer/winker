@@ -1,3 +1,5 @@
+// Компонент з формою читання та редагування конкретного завдання
+
 import css from "./UpdateTaskForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -5,6 +7,7 @@ import { IoClose } from "react-icons/io5";
 import { useParams } from "react-router-dom";
 import { selectorTaskDetails } from "../../redux/tasks/selectors";
 import {
+  // apiDeleteTask,
   apiGetAllTasks,
   apiGetMyTasks,
   apiGetTaskDetails,
@@ -17,6 +20,9 @@ import { apiCurrentUser } from "../../redux/user/operations";
 import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import toast from "react-hot-toast";
+import { useState } from "react";
+import { MdDelete } from "react-icons/md";
+import { LuDot } from "react-icons/lu";
 
 const UpdateTaskForm = ({ closeModal }) => {
   const { id } = useParams();
@@ -25,6 +31,22 @@ const UpdateTaskForm = ({ closeModal }) => {
   const isLoggedIn = useSelector(selectorAuthIsLoggedIn);
   const users = useSelector(selectorUsers);
   const currentUser = useSelector(selectorCurrentUser);
+
+  const [listItems, setListItems] = useState([]);
+  const [newItem, setNewItem] = useState("");
+
+  useEffect(() => {
+    if (taskDetails?.list_enable && taskDetails.description) {
+      try {
+        const parsed = JSON.parse(taskDetails.description);
+        if (Array.isArray(parsed)) {
+          setListItems(parsed.map((item) => item.list || item));
+        }
+      } catch {
+        // не JSON — значить рядок
+      }
+    }
+  }, [taskDetails]);
 
   useEffect(() => {
     if (isLoggedIn && !currentUser?.id) {
@@ -35,7 +57,11 @@ const UpdateTaskForm = ({ closeModal }) => {
   const validationSchema = Yup.object({
     title: Yup.string().required("Заголовок обов'язковий"),
     isList: Yup.boolean(),
-    description: Yup.string(),
+    description: Yup.string().when("isList", {
+      is: false,
+      then: (schema) => schema.required("Опис обов’язковий"),
+      otherwise: (schema) => schema,
+    }),
     dateFinished: Yup.string(),
     performerId: Yup.number().required("Оберіть користувача"),
     winkType: Yup.string().oneOf(["0", "1", "2"]),
@@ -43,25 +69,46 @@ const UpdateTaskForm = ({ closeModal }) => {
   });
 
   const initialValues = {
-    title: taskDetails.title || "",
-    isList: taskDetails.list_enable ?? false,
-    description: taskDetails.description || "",
-    dateFinished: taskDetails.finished_date
-      ? taskDetails.finished_date.slice(0, 10)
+    title: taskDetails?.title || "",
+    description:
+      taskDetails?.list_enable && taskDetails?.description
+        ? "" // очищуємо поле, щоб не показувати JSON
+        : taskDetails?.description || "",
+    isList: taskDetails?.list_enable || false,
+    dateFinished: taskDetails?.finished_date
+      ? new Date(taskDetails.finished_date).toISOString().split("T")[0]
       : "",
-    performerId: taskDetails.performer_id || "",
-    winkType: String(taskDetails.wink_type ?? 0),
-    status: taskDetails.status === 2,
+    performerId: taskDetails?.performer_id?.toString() || "",
+    winkType: taskDetails?.wink_type?.toString() || "0",
+    status: taskDetails?.status === 2,
   };
 
   const handleSubmit = async (values, actions) => {
+    if (values.isList && listItems.length === 0) {
+      toast.error("Додайте хоча б один пункт у список");
+      return;
+    }
+
     const formattedData = {
       title: values.title,
       list_enable: values.isList,
-      description: values.description,
-      finished_date: values.dateFinished,
-      performerId: Number(values.performerId),
-      wink_type: Number(values.winkType),
+      description: values.isList
+        ? JSON.stringify(
+            listItems.map((text, index) => ({
+              id: index + 1,
+              task_id: parseInt(id),
+              list: text,
+              checklist: 0,
+              create_date: Math.floor(Date.now() / 1000),
+              sended: null,
+            }))
+          )
+        : values.description,
+      finished_date: values.dateFinished
+        ? new Date(values.dateFinished).toISOString()
+        : null,
+      performer_id: parseInt(values.performerId),
+      wink_type: parseInt(values.winkType),
       status: values.status ? 2 : 0,
     };
 
@@ -93,8 +140,48 @@ const UpdateTaskForm = ({ closeModal }) => {
     }
   };
 
+  // Завдання видаляється, але в'юпорт не оновлюється:
+  // const onDeleteTask = (taskId) => {
+  //   dispatch(apiDeleteTask(taskId))
+  //     .unwrap()
+  //     .then(() => {
+  //       toast("Завдання успішно видалено");
+  //     });
+  // };
+
+  // Завдання не видаляється, хоча додане оновлення та закриття модального вікна. Виникає помилка 500
+  // const onDeleteTask = (taskId) => {
+  //   const confirmDelete = window.confirm(
+  //     "Ви впевнені, що хочете видалити це завдання?"
+  //   );
+  //   if (!confirmDelete) return;
+
+  //   dispatch(apiDeleteTask(Number(taskId)))
+  //     .unwrap()
+  //     .then(async () => {
+  //       toast.success("Завдання успішно видалено");
+
+  //       // Очікуємо завершення всіх оновлень списків
+  //       await Promise.all([
+  //         dispatch(apiGetAllTasks()),
+  //         dispatch(apiGetMyTasks()),
+  //         dispatch(apiGetTasksAssignedToMe()),
+  //       ]);
+
+  //       closeModal();
+  //     })
+  //     .catch(() => toast.error("Помилка при видаленні"));
+  // };
+
   return (
     <>
+      {/* <button
+        className={css.deleteTaskBnt}
+        type="button"
+        onClick={() => onDeleteTask(id)}
+      >
+        <MdDelete />
+      </button> */}
       <button
         className={css.closeModalBtn}
         type="button"
@@ -130,32 +217,83 @@ const UpdateTaskForm = ({ closeModal }) => {
                 </div>
 
                 <div className={css.group}>
-                  <label>
+                  <label className={css.listCheckbox}>
                     <Field
                       type="checkbox"
                       name="isList"
                       checked={values.isList}
-                      onChange={handleChange}
+                      onChange={(e) => {
+                        handleChange(e);
+                        // не очищуємо список при вимкненні
+                      }}
                     />
                     списком
                   </label>
                 </div>
 
-                <div className={css.group}>
-                  <label className={css.label}>
-                    <span>Опис задачі</span>
-                    <Field
-                      type="text"
-                      name="description"
-                      className={css.input}
-                    />
-                    <ErrorMessage
-                      className={css.errorText}
-                      name="description"
-                      component="span"
-                    />
-                  </label>
-                </div>
+                {!values.isList && typeof values.description === "string" && (
+                  <div className={css.group}>
+                    <label className={css.label}>
+                      <span>Опис задачі</span>
+                      <Field
+                        type="text"
+                        name="description"
+                        className={css.input}
+                      />
+                      <ErrorMessage
+                        name="description"
+                        component="span"
+                        className={css.errorText}
+                      />
+                    </label>
+                  </div>
+                )}
+
+                {values.isList && (
+                  <div className={css.group}>
+                    {listItems.map((item, index) => (
+                      <div key={index} className={css.listItem}>
+                        <label className={css.item}>
+                          <LuDot className={css.iconDot} />
+                          {item}
+                        </label>
+                        <button
+                          type="button"
+                          className={css.deleteItemBtn}
+                          onClick={() =>
+                            setListItems((prev) =>
+                              prev.filter((_, i) => i !== index)
+                            )
+                          }
+                        >
+                          <MdDelete />
+                        </button>
+                      </div>
+                    ))}
+
+                    <div className={css.newListItem}>
+                      <input
+                        type="text"
+                        value={newItem}
+                        onChange={(e) => setNewItem(e.target.value)}
+                        className={css.input}
+                        placeholder="Пункт списку"
+                      />
+                      <button
+                        type="button"
+                        className={css.addListItemBtn}
+                        onClick={() => {
+                          if (newItem.trim()) {
+                            setListItems((prev) => [...prev, newItem.trim()]);
+                            setNewItem("");
+                          }
+                        }}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                )}
 
                 <div className={css.group}>
                   <label>

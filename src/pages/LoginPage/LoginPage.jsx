@@ -1,3 +1,5 @@
+// Сторінка для входу на сайт
+
 import LoginForm from "../../components/LoginForm/LoginForm.jsx";
 
 const LoginPage = () => {

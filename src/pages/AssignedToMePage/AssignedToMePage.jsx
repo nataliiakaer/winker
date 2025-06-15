@@ -1,4 +1,4 @@
-// Компонент завантажує завдання, призначені для мене
+// Сторінка показує завдання, призначені для мене
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";

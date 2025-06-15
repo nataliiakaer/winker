@@ -1,3 +1,5 @@
+// Сторінка для додавання нового завдання
+
 import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "../../redux/tasks/slice";
 import { selectorAddTaskModal } from "../../redux/tasks/selectors";

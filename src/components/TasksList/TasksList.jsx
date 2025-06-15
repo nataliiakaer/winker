@@ -1,3 +1,5 @@
+// Компонент відображає список завдань та їх розподілення
+
 import css from "./TasksList.module.css";
 import Task from "../Task/Task";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,10 +8,6 @@ import { useSelector } from "react-redux";
 import { selectorListViewMode } from "../../redux/listViewMode/selector";
 import clsx from "clsx";
 import { RiLock2Fill } from "react-icons/ri";
-
-// import { useDispatch } from "react-redux";
-// import { apiDeleteTask } from "../../redux/tasks/operations";
-// import toast from "react-hot-toast";
 
 const TasksList = ({ tasks, isLoading }) => {
   const location = useLocation();
@@ -35,14 +33,6 @@ const TasksList = ({ tasks, isLoading }) => {
   // const sortedByDateTime = [...tasks].sort(
   //   (a, b) => new Date(b.created_at) - new Date(a.created_at)
   // );
-
-  // const onDeleteTask = (taskId) => {
-  //   dispatch(apiDeleteTask(taskId))
-  //     .unwrap()
-  //     .then(() => {
-  //       toast("Завдання успішно видалено");
-  //     });
-  // };
 
   return (
     <AnimatePresence mode="wait">
@@ -72,7 +62,7 @@ const TasksList = ({ tasks, isLoading }) => {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
               >
-                <Task task={task} /*onDeleteTask={onDeleteTask}*/ />
+                <Task task={task} />
                 {task.status === 2 && <RiLock2Fill className={css.isDone} />}
               </MotionLi>
             </Link>

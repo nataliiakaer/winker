@@ -1,3 +1,5 @@
+// Компонент з кнопкою оновлення списку завдань та відображення актуальних даних
+
 import css from "./ButtonUpdateLists.module.css";
 import { PiArrowsClockwiseBold } from "react-icons/pi";
 import { useDispatch } from "react-redux";

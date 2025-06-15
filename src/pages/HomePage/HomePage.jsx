@@ -1,4 +1,4 @@
-// Компонент завантажує всі завдання, тобто об'єднання "/tasks/my-tasks" та "/tasks/assigned-to-me" без дублікатів
+// Сторінка показує всі завдання, тобто об'єднання "/tasks/my-tasks" та "/tasks/assigned-to-me" без дублікатів
 
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
